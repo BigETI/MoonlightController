@@ -1,0 +1,8 @@
+#ifndef __MOONLIGHT_CONTROLLER_H__
+#	define __MOONLIGHT_CONTROLLER_H__
+#	if defined(MOONLIGHT_CONTROLLER_LIBRARY)
+#		define MOONLIGHT_CONTROLLER_PROTECTED public
+#	else
+#		define MOONLIGHT_CONTROLLER_PROTECTED protected
+#	endif
+#endif

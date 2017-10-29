@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libmoonlightcontroller", "libmoonlightcontroller\libmoonlightcontroller.vcxproj", "{B6E98AF9-D9E0-4300-887A-67E5814AB74F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "moonlightcontroller", "moonlightcontroller\moonlightcontroller.vcxproj", "{02FD7646-E96C-43E9-A3AB-1DD9604AF972}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{B6E98AF9-D9E0-4300-887A-67E5814AB74F}.Release|x64.Build.0 = Release|x64
 		{B6E98AF9-D9E0-4300-887A-67E5814AB74F}.Release|x86.ActiveCfg = Release|Win32
 		{B6E98AF9-D9E0-4300-887A-67E5814AB74F}.Release|x86.Build.0 = Release|Win32
+		{02FD7646-E96C-43E9-A3AB-1DD9604AF972}.Debug|x64.ActiveCfg = Debug|x64
+		{02FD7646-E96C-43E9-A3AB-1DD9604AF972}.Debug|x64.Build.0 = Debug|x64
+		{02FD7646-E96C-43E9-A3AB-1DD9604AF972}.Debug|x86.ActiveCfg = Debug|Win32
+		{02FD7646-E96C-43E9-A3AB-1DD9604AF972}.Debug|x86.Build.0 = Debug|Win32
+		{02FD7646-E96C-43E9-A3AB-1DD9604AF972}.Release|x64.ActiveCfg = Release|x64
+		{02FD7646-E96C-43E9-A3AB-1DD9604AF972}.Release|x64.Build.0 = Release|x64
+		{02FD7646-E96C-43E9-A3AB-1DD9604AF972}.Release|x86.ActiveCfg = Release|Win32
+		{02FD7646-E96C-43E9-A3AB-1DD9604AF972}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
