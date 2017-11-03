@@ -4,7 +4,7 @@
 // Moonlight controller namespace
 namespace MoonlightController
 {
-	// XInput buttons namespace
+	// XInput buttons enumerator
 	enum EXInputButtons
 	{
 		// D-Pad up
