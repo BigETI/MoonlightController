@@ -13,7 +13,7 @@ using namespace std;
 using namespace std::chrono;
 
 // Libraries
-static ELuaModuleLibrary libraries(ELuaModuleLibrary_Recommended);
+static ELuaModuleLibraries libraries(ELuaModuleLibraries_Recommended);
 
 // Render help
 static bool RenderHelp(vector<string> & args);
@@ -127,7 +127,7 @@ static bool ChangeLibraries(vector<string> & args)
 	if (args.size() == 1)
 	{
 		ret = true;
-		libraries = static_cast<ELuaModuleLibrary>(std::stoi(args[0]));
+		libraries = static_cast<ELuaModuleLibraries>(std::stoi(args[0]));
 	}
 	return ret;
 }

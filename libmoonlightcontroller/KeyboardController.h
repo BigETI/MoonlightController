@@ -1,6 +1,7 @@
 #ifndef __MOONLIGHT_CONTROLLER_KEYBOARD_CONTROLLER_H__
 #	define __MOONLIGHT_CONTROLLER_KEYBOARD_CONTROLLER_H__
 #	include <string>
+
 // Moonlight controller namespace
 namespace MoonlightController
 {

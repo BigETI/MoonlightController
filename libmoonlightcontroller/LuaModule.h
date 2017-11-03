@@ -6,7 +6,8 @@
 #	include <map>
 #	include <vector>
 #	include <EventSystem.h>
-#	include <ELuaModuleLibrary.h>
+#	include <ELuaModuleLibraries.h>
+
 // Moonlight controller namespace
 namespace MoonlightController
 {
@@ -47,7 +48,7 @@ namespace MoonlightController
 	public:
 
 		// Constructor
-		LuaModule(std::string _source, bool _isFile, ELuaModuleLibrary libraries);
+		LuaModule(std::string _source, bool _isFile, ELuaModuleLibraries libraries);
 
 		// Destructor
 		~LuaModule();

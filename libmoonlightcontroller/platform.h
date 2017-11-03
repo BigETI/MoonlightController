@@ -1,5 +1,5 @@
-#ifndef __PLATFORM_H__
-#	define __PLATFORM_H__
+#ifndef __MOONLIGHT_CONTROLLER_PLATFORM_H__
+#	define __MOONLIGHT_CONTROLLER_PLATFORM_H__
 #	ifndef __cplusplus
 #		error Please compile this with a C++ compiler
 #	endif

@@ -2,6 +2,7 @@
 #	define __MOONLIGHT_CONTROLLER_MOUSE_CONTROLLER_H__
 #	include <Position.h>
 #	include <EMouseButton.h>
+
 // Moonlight controller namespace
 namespace MoonlightController
 {

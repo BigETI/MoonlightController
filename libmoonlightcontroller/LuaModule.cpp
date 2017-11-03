@@ -1,5 +1,6 @@
 #define MOONLIGHT_CONTROLLER_LIBRARY
 #include <iostream>
+#include <codecvt>
 #include <LuaModule.h>
 #include <MouseController.h>
 #include <KeyboardController.h>
@@ -9,6 +10,8 @@ using namespace MoonlightController;
 using namespace std;
 
 static LuaModule *instance(nullptr);
+
+static wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
 
 // Lua mouse.setPosition
 static int mouse_setPosition(lua_State *luaState)
@@ -157,6 +160,77 @@ int xinput_setVibration(lua_State *luaState)
 	return 0;
 }
 
+// Lua xinput.getAudioDeviceIDs
+int xinput_getAudioDeviceIDs(lua_State *luaState)
+{
+	int ret(0);
+	if (lua_isinteger(luaState, 1))
+	{
+		wstring render_device_id;
+		wstring capture_device_id;
+		XInputController::GetAudioDeviceIDs(static_cast<int>(lua_tointeger(luaState, 1)) - 1, render_device_id, capture_device_id);
+		lua_pushstring(luaState, converter.to_bytes(render_device_id).c_str());
+		lua_pushstring(luaState, converter.to_bytes(capture_device_id).c_str());
+		ret = 2;
+	}
+	return ret;
+}
+
+// Lua xinput.getBatteryInformation
+int xinput_getBatteryInformation(lua_State *luaState)
+{
+	int ret(0);
+	if (lua_isinteger(luaState, 1) && lua_isinteger(luaState, 2))
+	{
+		XInputBatteryInformation batteryInformation(XInputController::GetBatteryInformation(static_cast<int>(lua_tointeger(luaState, 1)) - 1, static_cast<EXInputBatteryDeviceType>(lua_tointeger(luaState, 2))));
+		lua_pushinteger(luaState, static_cast<int>(batteryInformation.batteryType));
+		lua_pushinteger(luaState, static_cast<int>(batteryInformation.batteryLevel));
+		ret = 2;
+	}
+	return ret;
+}
+
+// Lua xinput.getCapabilities
+int xinput_getCapabilities(lua_State *luaState)
+{
+	int ret(0);
+	if (lua_isinteger(luaState, 1) && lua_isinteger(luaState, 2))
+	{
+		XInputCapabilities capabilities(XInputController::GetCapabilities(static_cast<int>(lua_tointeger(luaState, 1)) - 1));
+		lua_pushinteger(luaState, static_cast<int>(capabilities.deviceType));
+		lua_pushinteger(luaState, static_cast<int>(capabilities.deviceSubType));
+		lua_pushinteger(luaState, static_cast<int>(capabilities.deviceFeatures));
+		lua_pushinteger(luaState, static_cast<int>(capabilities.buttons));
+		lua_pushnumber(luaState, capabilities.leftTrigger);
+		lua_pushnumber(luaState, capabilities.rightTrigger);
+		lua_pushnumber(luaState, capabilities.thumbLX);
+		lua_pushnumber(luaState, capabilities.thumbLY);
+		lua_pushnumber(luaState, capabilities.thumbRX);
+		lua_pushnumber(luaState, capabilities.thumbRY);
+		lua_pushnumber(luaState, capabilities.leftMotor);
+		lua_pushnumber(luaState, capabilities.rightMotor);
+		ret = 12;
+	}
+	return ret;
+}
+
+// Lua xinput.getKeystroke
+int xinput_getKeystroke(lua_State *luaState)
+{
+	int ret(0);
+	if (lua_isinteger(luaState, 1) && lua_isinteger(luaState, 2))
+	{
+		XInputKeystroke keystroke(XInputController::GetKeystroke(static_cast<int>(lua_tointeger(luaState, 1)) - 1));
+		lua_pushinteger(luaState, static_cast<int>(keystroke.virtualKey));
+		lua_pushinteger(luaState, static_cast<int>(keystroke.unicode));
+		lua_pushinteger(luaState, static_cast<int>(keystroke.keyboardStates));
+		lua_pushinteger(luaState, keystroke.userIndex);
+		lua_pushinteger(luaState, keystroke.hidCode);
+		ret = 5;
+	}
+	return ret;
+}
+
 // Lua runtime.exit
 int runtime_exit(lua_State *luaState)
 {
@@ -215,6 +289,10 @@ static const luaL_Reg xInputLibrary[] =
 	{ "getButtons", xinput_getButtons },
 	{ "getAxis", xinput_getAxis },
 	{ "setVibration", xinput_setVibration },
+	{ "getAudioDeviceIDs", xinput_getAudioDeviceIDs },
+	{ "getBatteryInformation", xinput_getBatteryInformation },
+	{ "getCapabilities", xinput_getCapabilities },
+	{ "getKeystroke", xinput_getKeystroke },
 	{ nullptr, nullptr }
 };
 
@@ -237,16 +315,16 @@ void LuaModule::SetExitSignal()
 	exitSignal = true;
 }
 
-LuaModule::LuaModule(string _source, bool _isFile, ELuaModuleLibrary libraries) : source(_source), isFile(_isFile), luaState(nullptr), exitSignal(false)
+LuaModule::LuaModule(string _source, bool _isFile, ELuaModuleLibraries libraries) : source(_source), isFile(_isFile), luaState(nullptr), exitSignal(false)
 {
 	luaState = luaL_newstate();
 	if (luaState)
 	{
-		if (libraries & ELuaModuleLibrary_Essential)
+		if (libraries & ELuaModuleLibraries_Essential)
 		{
 			luaL_openlibs(luaState);
 		}
-		if (libraries & ELuaModuleLibrary_Mouse)
+		if (libraries & ELuaModuleLibraries_Mouse)
 		{
 			lua_newtable(luaState);
 			luaL_setfuncs(luaState, mouseLibrary, 0);
@@ -259,14 +337,14 @@ LuaModule::LuaModule(string _source, bool _isFile, ELuaModuleLibrary libraries) 
 			lua_pushvalue(luaState, -1);
 			lua_setglobal(luaState, "mouse");
 		}
-		if (libraries & ELuaModuleLibrary_Keyboard)
+		if (libraries & ELuaModuleLibraries_Keyboard)
 		{
 			lua_newtable(luaState);
 			luaL_setfuncs(luaState, keyboardLibrary, 0);
 			lua_pushvalue(luaState, -1);
 			lua_setglobal(luaState, "keyboard");
 		}
-		if (libraries & ELuaModuleLibrary_XInput)
+		if (libraries & ELuaModuleLibraries_XInput)
 		{
 			lua_newtable(luaState);
 			luaL_setfuncs(luaState, xInputLibrary, 0);
@@ -313,14 +391,14 @@ LuaModule::LuaModule(string _source, bool _isFile, ELuaModuleLibrary libraries) 
 			lua_pushvalue(luaState, -1);
 			lua_setglobal(luaState, "xinput");
 		}
-		if (libraries & ELuaModuleLibrary_Runtime)
+		if (libraries & ELuaModuleLibraries_Runtime)
 		{
 			lua_newtable(luaState);
 			luaL_setfuncs(luaState, runtimeLibrary, 0);
 			lua_pushvalue(luaState, -1);
 			lua_setglobal(luaState, "runtime");
 		}
-		if (libraries & ELuaModuleLibrary_Event)
+		if (libraries & ELuaModuleLibraries_Event)
 		{
 			lua_newtable(luaState);
 			luaL_setfuncs(luaState, eventLibrary, 0);

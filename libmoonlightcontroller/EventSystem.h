@@ -1,6 +1,7 @@
 #ifndef __MOONLIGHT_CONTROLLER_EVENT_SYSTEM_H__
 #	define __MOONLIGHT_CONTROLLER_EVENT_SYSTEM_H__
 #	include <vector>
+
 // Moonlight controller namespace
 namespace MoonlightController
 {

@@ -1,9 +1,20 @@
 #ifndef __MOONLIGHT_CONTROLLER_E_MOUSE_BUTTON_H__
 #	define __MOONLIGHT_CONTROLLER_E_MOUSE_BUTTON_H__
-enum EMouseButton
+
+// Moonlight controller namespace
+namespace MoonlightController
 {
-	EMouseButton_Left,
-	EMouseButton_Right,
-	EMouseButton_Middle
-};
+	// Mouse button enumerator
+	enum EMouseButton
+	{
+		// Left
+		EMouseButton_Left,
+
+		// Right
+		EMouseButton_Right,
+
+		// Middle
+		EMouseButton_Middle
+	};
+}
 #endif

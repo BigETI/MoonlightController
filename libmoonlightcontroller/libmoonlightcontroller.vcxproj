@@ -115,18 +115,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ELuaModuleLibrary.h" />
+    <ClInclude Include="ELuaModuleLibraries.h" />
     <ClInclude Include="EMouseButton.h" />
     <ClInclude Include="EventSystem.h" />
     <ClInclude Include="EXInputAxis.h" />
-    <ClInclude Include="EXInputButton.h" />
+    <ClInclude Include="EXInputBatteryDeviceType.h" />
+    <ClInclude Include="EXInputBatteryLevel.h" />
+    <ClInclude Include="EXInputBatteryType.h" />
+    <ClInclude Include="EXInputButtons.h" />
+    <ClInclude Include="EXInputDeviceFeatures.h" />
+    <ClInclude Include="EXInputDeviceSubtype.h" />
+    <ClInclude Include="EXInputDeviceType.h" />
+    <ClInclude Include="EXInputKeyboardStates.h" />
+    <ClInclude Include="EXInputVirtualKey.h" />
     <ClInclude Include="KeyboardController.h" />
     <ClInclude Include="LuaModule.h" />
     <ClInclude Include="moonlightcontroller.h" />
     <ClInclude Include="MouseController.h" />
     <ClInclude Include="platform.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="XInputBatteryInformation.h" />
+    <ClInclude Include="XInputCapabilities.h" />
     <ClInclude Include="XInputController.h" />
+    <ClInclude Include="XInputKeystroke.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EventSystem.cpp" />
@@ -134,7 +145,10 @@
     <ClCompile Include="LuaModule.cpp" />
     <ClCompile Include="MouseController.cpp" />
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="XInputBatteryInformation.cpp" />
+    <ClCompile Include="XInputCapabilities.cpp" />
     <ClCompile Include="XInputController.cpp" />
+    <ClCompile Include="XInputKeystroke.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

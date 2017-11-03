@@ -1,5 +1,6 @@
 #ifndef __MOONLIGHT_CONTROLLER_POSITION_H__
 #	define __MOONLIGHT_CONTROLLER_POSITION_H__
+
 // Moonlight controller namespace
 namespace MoonlightController
 {
