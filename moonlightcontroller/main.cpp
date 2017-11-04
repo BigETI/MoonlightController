@@ -41,8 +41,19 @@ static map<string, FunctionData> argumentFunctions =
 // File exists
 inline bool FileExists(const string & name)
 {
+#if defined(MOONLIGHT_CONTROLLER_LINUX)
+	bool ret(false);
+	FILE *f(fopen(name.c_str(), "rb"));
+	if (f)
+	{
+		ret = true;
+		fclose(f);
+	}
+	return ret;
+#elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
 	struct stat buffer;
 	return (stat(name.c_str(), &buffer) == 0);
+#endif
 }
 
 // Clear modules

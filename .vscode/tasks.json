@@ -24,6 +24,25 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "taskName": "build moonlightcontroller",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-I",
+                "./",
+                "-I",
+                "./includes",
+                "-I",
+                "./moonlightcontroller",
+                "-g",
+                "moonlightcontroller/main.cpp"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }

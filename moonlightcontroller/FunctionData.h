@@ -4,7 +4,7 @@
 #	include <vector>
 struct FunctionData
 {
-	typename bool(*function)(std::vector<std::string> &);
+	bool(*function)(std::vector<std::string> &);
 	std::string help;
 	bool isUnique;
 	FunctionData(bool(*_function)(std::vector<std::string> &), std::string _help, bool _isUnique) : function(_function), help(_help), isUnique(_isUnique)
