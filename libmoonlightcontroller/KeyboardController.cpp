@@ -5,7 +5,23 @@
 using namespace MoonlightController;
 using namespace std;
 
-#if defined(MOONLIGHT_CONTROLLER_WINDOWS)
+#if defined(MOONLIGHT_CONTROLLER_LINUX)
+#include <X11/Xlib.h>
+
+// Display
+static Display *display(nullptr);
+
+// Get display
+static Display *GetDisplay()
+{
+	if (display == nullptr)
+	{
+		display = XOpenDisplay(nullptr);
+	}
+	return display;
+}
+
+#elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
 #include <set>
 static set<int> isDown;
 #endif

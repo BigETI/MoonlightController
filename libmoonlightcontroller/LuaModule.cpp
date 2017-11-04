@@ -1,5 +1,6 @@
 #define MOONLIGHT_CONTROLLER_LIBRARY
 #include <iostream>
+#include <locale>
 #include <codecvt>
 #include <libmoonlightcontroller/LuaModule.h>
 #include <libmoonlightcontroller/MouseController.h>
