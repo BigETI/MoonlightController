@@ -1,5 +1,5 @@
 #define MOONLIGHT_CONTROLLER_LIBRARY
-#include <Position.h>
+#include <libmoonlightcontroller/Position.h>
 
 using namespace MoonlightController;
 

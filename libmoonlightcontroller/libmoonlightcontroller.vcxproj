@@ -75,7 +75,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>./;../includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../;../includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -83,7 +83,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>./;../includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../;../includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -93,7 +93,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>./;../includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../;../includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -107,7 +107,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>./;../includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../;../includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -117,7 +117,6 @@
   <ItemGroup>
     <ClInclude Include="ELuaModuleLibraries.h" />
     <ClInclude Include="EMouseButton.h" />
-    <ClInclude Include="EventSystem.h" />
     <ClInclude Include="EXInputAxis.h" />
     <ClInclude Include="EXInputBatteryDeviceType.h" />
     <ClInclude Include="EXInputBatteryLevel.h" />
@@ -130,9 +129,9 @@
     <ClInclude Include="EXInputVirtualKey.h" />
     <ClInclude Include="KeyboardController.h" />
     <ClInclude Include="LuaModule.h" />
-    <ClInclude Include="moonlightcontroller.h" />
+    <ClInclude Include="Definitions.h" />
     <ClInclude Include="MouseController.h" />
-    <ClInclude Include="platform.h" />
+    <ClInclude Include="Platform.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="XInputBatteryInformation.h" />
     <ClInclude Include="XInputCapabilities.h" />
@@ -140,7 +139,6 @@
     <ClInclude Include="XInputKeystroke.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="KeyboardController.cpp" />
     <ClCompile Include="LuaModule.cpp" />
     <ClCompile Include="MouseController.cpp" />

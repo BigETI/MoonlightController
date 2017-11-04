@@ -1,6 +1,6 @@
 #define MOONLIGHT_CONTROLLER_LIBRARY
-#include <KeyboardController.h>
-#include <platform.h>
+#include <libmoonlightcontroller/KeyboardController.h>
+#include <libmoonlightcontroller/Platform.h>
 
 using namespace MoonlightController;
 using namespace std;

@@ -1,9 +1,9 @@
 #ifndef __MOONLIGHT_CONTROLLER_XINPUT_CAPABILITIES_H__
 #	define __MOONLIGHT_CONTROLLER_XINPUT_CAPABILITIES_H__
-#	include <EXInputDeviceType.h>
-#	include <EXInputDeviceSubType.h>
-#	include <EXInputDeviceFeatures.h>
-#	include <EXInputButtons.h>
+#	include <libmoonlightcontroller/EXInputDeviceType.h>
+#	include <libmoonlightcontroller/EXInputDeviceSubType.h>
+#	include <libmoonlightcontroller/EXInputDeviceFeatures.h>
+#	include <libmoonlightcontroller/EXInputButtons.h>
 
 // Moonlight controller namespace
 namespace MoonlightController

@@ -1,7 +1,7 @@
 #ifndef __MOONLIGHT_CONTROLLER_MOUSE_CONTROLLER_H__
 #	define __MOONLIGHT_CONTROLLER_MOUSE_CONTROLLER_H__
-#	include <Position.h>
-#	include <EMouseButton.h>
+#	include <libmoonlightcontroller/Position.h>
+#	include <libmoonlightcontroller/EMouseButton.h>
 
 // Moonlight controller namespace
 namespace MoonlightController

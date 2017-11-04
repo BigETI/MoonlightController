@@ -1,6 +1,6 @@
 #define MOONLIGHT_CONTROLLER_LIBRARY
-#include <MouseController.h>
-#include <platform.h>
+#include <libmoonlightcontroller/MouseController.h>
+#include <libmoonlightcontroller/Platform.h>
 
 using namespace MoonlightController;
 

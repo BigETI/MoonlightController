@@ -1,7 +1,7 @@
 #ifndef __MOONLIGHT_CONTROLLER_XINPUT_BATTERY_INFORMATION_H__
 #	define __MOONLIGHT_CONTROLLER_XINPUT_BATTERY_INFORMATION_H__
-#	include <EXInputBatteryType.h>
-#	include <EXInputBatteryLevel.h>
+#	include <libmoonlightcontroller/EXInputBatteryType.h>
+#	include <libmoonlightcontroller/EXInputBatteryLevel.h>
 
 // Moonlight controller namespace
 namespace MoonlightController

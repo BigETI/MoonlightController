@@ -1,12 +1,12 @@
 #ifndef __MOONLIGHT_CONTROLLER_LUA_MODULE_H__
 #	define __MOONLIGHT_CONTROLLER_LUA_MODULE_H__
-#	include <moonlightcontroller.h>
+#	include <libmoonlightcontroller/Definitions.h>
 #	include <lua.hpp>
 #	include <string>
 #	include <map>
 #	include <vector>
-#	include <EventSystem.h>
-#	include <ELuaModuleLibraries.h>
+//#	include <libmoonlightcontroller/EventSystem.h>
+#	include <libmoonlightcontroller/ELuaModuleLibraries.h>
 
 // Moonlight controller namespace
 namespace MoonlightController
@@ -37,7 +37,7 @@ namespace MoonlightController
 		// Assign operator
 		LuaModule &operator=(const LuaModule &);
 
-	MOONLIGHT_CONTROLLER_PROTECTED:
+	MOONLIGHT_CONTROLLER_PRIVATE:
 
 		// Events
 		std::map<std::string, std::vector<int>> events;

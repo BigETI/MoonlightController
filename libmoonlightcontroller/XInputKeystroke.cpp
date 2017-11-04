@@ -1,5 +1,5 @@
 #define MOONLIGHT_CONTROLLER_LIBRARY
-#include <XInputKeystroke.h>
+#include <libmoonlightcontroller/XInputKeystroke.h>
 
 using namespace MoonlightController;
 

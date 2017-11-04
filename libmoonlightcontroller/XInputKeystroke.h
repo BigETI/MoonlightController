@@ -1,7 +1,7 @@
 #ifndef __MOONLIGHT_CONTROLLER_XINPUT_KEYSTROKE_H__
 #	define __MOONLIGHT_CONTROLLER_XINPUT_KEYSTROKE_H__
-#	include <EXInputVirtualKey.h>
-#	include <EXInputKeyboardStates.h>
+#	include <libmoonlightcontroller/EXInputVirtualKey.h>
+#	include <libmoonlightcontroller/EXInputKeyboardStates.h>
 
 // Moonlight controller namespace
 namespace MoonlightController

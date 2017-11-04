@@ -4,9 +4,9 @@
 #include <string>
 #include <chrono>
 #include <thread>
-#include <LuaModule.h>
+#include <libmoonlightcontroller/LuaModule.h>
 #include <FunctionData.h>
-#include <platform.h>
+#include <libmoonlightcontroller/Platform.h>
 
 using namespace MoonlightController;
 using namespace std;
@@ -138,7 +138,7 @@ int Main(string & fileName, vector<string> & arguments)
 	string arg;
 	vector<string> args;
 	map<string, FunctionData>::iterator it, end(argumentFunctions.end());
-	for (int i(0); i < arguments.size(); i++)
+	for (size_t i(0U); i < arguments.size(); i++)
 	{
 		arg = arguments[i];
 		if (arg[0] == '-')
@@ -154,12 +154,12 @@ int Main(string & fileName, vector<string> & arguments)
 			{
 				string s_arg;
 				bool end_reached(true);
-				for (int j(i + 1); j < arguments.size(); j++)
+				for (size_t j(i + 1U); j < arguments.size(); j++)
 				{
 					s_arg = arguments[j];
 					if (s_arg[0] == '-')
 					{
-						i = j - 1;
+						i = j - 1U;
 						end_reached = false;
 						break;
 					}
@@ -237,8 +237,7 @@ int Main(string & fileName, vector<string> & arguments)
 	return 0;
 }
 
-
-#if defined(MOONLIGHT_CONTROLLER_WINDOWS)
+#if defined(MOONLIGHT_CONTROLLER_WINDOWS) && defined(MOONLIGHT_CONTROLLER_NO_CONSOLE_APP)
 
 // Main entry point
 int CALLBACK WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -251,6 +250,7 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In
 	}
 	return Main(file_name, args);
 }
+
 #else
 
 // Main entry point

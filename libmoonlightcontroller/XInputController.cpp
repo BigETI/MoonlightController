@@ -1,6 +1,6 @@
 #define MOONLIGHT_CONTROLLER_LIBRARY
-#include <XInputController.h>
-#include <platform.h>
+#include <libmoonlightcontroller/XInputController.h>
+#include <libmoonlightcontroller/Platform.h>
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
@@ -10,7 +10,6 @@
 #endif
 
 using namespace MoonlightController;
-
 using namespace std;
 
 bool XInputController::IsConnected(int controllerID)

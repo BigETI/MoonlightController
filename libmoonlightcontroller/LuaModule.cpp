@@ -1,10 +1,10 @@
 #define MOONLIGHT_CONTROLLER_LIBRARY
 #include <iostream>
 #include <codecvt>
-#include <LuaModule.h>
-#include <MouseController.h>
-#include <KeyboardController.h>
-#include <XInputController.h>
+#include <libmoonlightcontroller/LuaModule.h>
+#include <libmoonlightcontroller/MouseController.h>
+#include <libmoonlightcontroller/KeyboardController.h>
+#include <libmoonlightcontroller/XInputController.h>
 
 using namespace MoonlightController;
 using namespace std;

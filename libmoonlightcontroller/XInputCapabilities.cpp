@@ -1,5 +1,5 @@
 #define MOONLIGHT_CONTROLLER_LIBRARY
-#include <XInputCapabilities.h>
+#include <libmoonlightcontroller/XInputCapabilities.h>
 
 using namespace MoonlightController;
 

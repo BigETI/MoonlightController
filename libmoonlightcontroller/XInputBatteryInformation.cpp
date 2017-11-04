@@ -1,5 +1,5 @@
 #define MOONLIGHT_CONTROLLER_LIBRARY
-#include <XInputBatteryInformation.h>
+#include <libmoonlightcontroller/XInputBatteryInformation.h>
 
 using namespace MoonlightController;
 
