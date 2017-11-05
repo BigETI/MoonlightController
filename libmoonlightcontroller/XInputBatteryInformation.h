@@ -1,5 +1,6 @@
 #ifndef __MOONLIGHT_CONTROLLER_XINPUT_BATTERY_INFORMATION_H__
 #	define __MOONLIGHT_CONTROLLER_XINPUT_BATTERY_INFORMATION_H__
+
 #	include <libmoonlightcontroller/EXInputBatteryType.h>
 #	include <libmoonlightcontroller/EXInputBatteryLevel.h>
 

@@ -7,10 +7,13 @@
             "command": "g++",
             "args": [
                 "-I",
+                "/usr/include/libevdev-1.0",
+                "-I",
                 "./",
                 "-I",
                 "./includes",
                 "-g",
+                "libmoonlightcontroller/Linux/UserInputOutput.cpp",
                 "libmoonlightcontroller/KeyboardController.cpp",
                 "libmoonlightcontroller/LuaModule.cpp",
                 "libmoonlightcontroller/MouseController.cpp",

@@ -1,7 +1,13 @@
 #ifndef __MOONLIGHT_CONTROLLER_MOUSE_CONTROLLER_H__
 #	define __MOONLIGHT_CONTROLLER_MOUSE_CONTROLLER_H__
+
 #	include <libmoonlightcontroller/Position.h>
 #	include <libmoonlightcontroller/EMouseButton.h>
+#	include <libmoonlightcontroller/Platform.h>
+
+#	if defined(MOONLIGHT_CONTROLLER_LINUX)
+#		include <libmoonlightcontroller/Linux/UserInputOutput.h>
+#	endif
 
 // Moonlight controller namespace
 namespace MoonlightController
@@ -10,35 +16,48 @@ namespace MoonlightController
 	class MouseController
 	{
 	private:
-		// Default constructor
-		MouseController();
+		
+		#if defined(MOONLIGHT_CONTROLLER_LINUX)
+		
+		// User input output
+		UserInputOutput userInputOutput;
+
+		#endif
 
 		// Copy constructor
 		MouseController(const MouseController &);
 
 		// Assign operator
 		MouseController & operator = (const MouseController &);
+
 	public:
+
+		// Default constructor
+		MouseController();
+
+		// Destructor
+		~MouseController();
+
 		// Set mouse position
-		static void SetPosition(int x, int y);
+		void SetPosition(int x, int y);
 
 		// Get mouse position
-		static Position GetPosition();
+		Position GetPosition();
 
 		// Move mouse (relative)
-		static void Move(int x, int y);
+		void Move(int x, int y);
 
 		// Mouse click
-		static void Click(EMouseButton mouseButton);
+		void Click(EMouseButton mouseButton);
 
 		// Mouse press
-		static void Press(EMouseButton mouseButton, bool down);
+		void Press(EMouseButton mouseButton, bool down);
 
 		// Is mouse down
-		static bool IsDown(EMouseButton mouseButton);
+		bool IsDown(EMouseButton mouseButton);
 
 		// Scroll mouse wheel
-		static void Scroll(int scroll);
+		void Scroll(int scroll);
 	};
 }
 #endif

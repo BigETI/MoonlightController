@@ -1,5 +1,6 @@
 #ifndef __MOONLIGHT_CONTROLLER_XINPUT_CAPABILITIES_H__
 #	define __MOONLIGHT_CONTROLLER_XINPUT_CAPABILITIES_H__
+
 #	include <libmoonlightcontroller/EXInputDeviceType.h>
 #	include <libmoonlightcontroller/EXInputDeviceSubType.h>
 #	include <libmoonlightcontroller/EXInputDeviceFeatures.h>

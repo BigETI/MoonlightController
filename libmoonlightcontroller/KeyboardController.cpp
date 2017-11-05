@@ -1,36 +1,38 @@
 #define MOONLIGHT_CONTROLLER_LIBRARY
+
 #include <libmoonlightcontroller/KeyboardController.h>
 #include <libmoonlightcontroller/Platform.h>
+#include <set>
 
 using namespace MoonlightController;
 using namespace std;
 
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
-#include <X11/Xlib.h>
+#	include <linux/uinput.h>
+#endif
 
-// Display
-static Display *display(nullptr);
+static set<int> isDown;
 
-// Get display
-static Display *GetDisplay()
+KeyboardController::KeyboardController()
+#if defined(MOONLIGHT_CONTROLLER_LINUX)
+	: userInputOutput(EUserInputOutputType_Keyboard, "Moonlight controller (Keyboard)")
+#endif
 {
-	if (display == nullptr)
-	{
-		display = XOpenDisplay(nullptr);
-	}
-	return display;
+	//
 }
 
-#elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
-#include <set>
-static set<int> isDown;
-#endif
+KeyboardController::~KeyboardController()
+{
+	//
+}
 
 void KeyboardController::Click(int key)
 {
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
-#	error Implement function here
-	// To-do
+	userInputOutput.write(EV_KEY, key, 1);
+	userInputOutput.write(EV_SYN, SYN_REPORT, 0);
+	userInputOutput.write(EV_KEY, key, 0);
+	userInputOutput.write(EV_SYN, SYN_REPORT, 0);
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
 	INPUT in;
 	memset(&in, 0, sizeof(INPUT));
@@ -52,8 +54,8 @@ void KeyboardController::Press(int key, bool down)
 	if (down ? (!IsDown(key)) : IsDown(key))
 	{
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
-#	error Implement function here
-		// To-do
+		userInputOutput.write(EV_KEY, key, down ? 1 : 0);
+		userInputOutput.write(EV_SYN, SYN_REPORT, 0);
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
 		INPUT in;
 		memset(&in, 0, sizeof(INPUT));
@@ -64,6 +66,11 @@ void KeyboardController::Press(int key, bool down)
 			in.ki.dwFlags = KEYEVENTF_KEYUP;
 		}
 		SendInput(1, &in, sizeof(INPUT));
+		
+#elif defined(MOONLIGHT_CONTROLLER_OSX)
+#	error Implement function here
+		// To-do
+#endif
 		if (down)
 		{
 			isDown.insert(key);
@@ -72,26 +79,12 @@ void KeyboardController::Press(int key, bool down)
 		{
 			isDown.erase(isDown.find(key));
 		}
-#elif defined(MOONLIGHT_CONTROLLER_OSX)
-#	error Implement function here
-		// To-do
-#endif
 	}
 }
 
 bool MoonlightController::KeyboardController::IsDown(int key)
 {
-	bool ret(false);
-#if defined(MOONLIGHT_CONTROLLER_LINUX)
-#	error Implement function here
-	// To-do
-#elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
-	ret = (isDown.find(key) != isDown.end());
-#elif defined(MOONLIGHT_CONTROLLER_OSX)
-#	error Implement function here
-	// To-do
-#endif
-	return ret;
+	return (isDown.find(key) != isDown.end());
 }
 
 void KeyboardController::Input(string input)

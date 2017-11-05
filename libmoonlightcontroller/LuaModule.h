@@ -1,12 +1,15 @@
 #ifndef __MOONLIGHT_CONTROLLER_LUA_MODULE_H__
 #	define __MOONLIGHT_CONTROLLER_LUA_MODULE_H__
+
 #	include <libmoonlightcontroller/Definitions.h>
 #	include <lua.hpp>
 #	include <string>
 #	include <map>
 #	include <vector>
-//#	include <libmoonlightcontroller/EventSystem.h>
 #	include <libmoonlightcontroller/ELuaModuleLibraries.h>
+#	include <libmoonlightcontroller/KeyboardController.h>
+#	include <libmoonlightcontroller/MouseController.h>
+#	include <libmoonlightcontroller/XInputController.h>
 
 // Moonlight controller namespace
 namespace MoonlightController
@@ -41,6 +44,15 @@ namespace MoonlightController
 
 		// Events
 		std::map<std::string, std::vector<int>> events;
+
+		// Keyboard controller
+		KeyboardController keyboardController;
+		
+		// Mouse controller
+		MouseController mouseController;
+
+		// XInput controller
+		XInputController xinputController;
 
 		// Set exit signal
 		void SetExitSignal();

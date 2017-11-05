@@ -32,7 +32,10 @@
                 "/usr/include",
                 "/usr/include/x86_64-linux-gnu",
                 "${workspaceRoot}",
-                "/usr/include/linux"
+                "/usr/include/libevdev-1.0",
+                "/usr/include/linux",
+                "./includes",
+                "./"
             ],
             "defines": [],
             "intelliSenseMode": "clang-x64",

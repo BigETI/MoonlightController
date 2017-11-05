@@ -12,6 +12,19 @@
 using namespace MoonlightController;
 using namespace std;
 
+XInputController::XInputController()
+#if defined(MOONLIGHT_CONTROLLER_LINUX)
+	: userInputOutput(EUserInputOutputType_Gamepad, "Moonlight controller (Gamepad)")
+#endif
+{
+	//
+}
+
+XInputController::~XInputController()
+{
+	//
+}
+
 bool XInputController::IsConnected(int controllerID)
 {
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
