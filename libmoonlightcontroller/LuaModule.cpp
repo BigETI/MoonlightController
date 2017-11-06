@@ -9,13 +9,12 @@ using namespace std;
 
 static wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
 
-static const char *luaModulePointerName = "__LUA_MODULE__";
+static map<lua_State *, LuaModule *> instances;
 
 // Lua mouse.setPosition
 static int mouse_setPosition(lua_State *luaState)
 {
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1) && lua_isinteger(luaState, 2))
 	{
 		lua_module->mouseController.SetPosition(static_cast<int>(lua_tointeger(luaState, 1)), static_cast<int>(lua_tointeger(luaState, 2)));
@@ -27,8 +26,7 @@ static int mouse_setPosition(lua_State *luaState)
 int mouse_getPosition(lua_State *luaState)
 {
 	int ret(0);
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module)
 	{
 		Position position(lua_module->mouseController.GetPosition());
@@ -42,8 +40,7 @@ int mouse_getPosition(lua_State *luaState)
 // Lua mouse.move
 static int mouse_move(lua_State *luaState)
 {
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1) && lua_isinteger(luaState, 2))
 	{
 		lua_module->mouseController.Move(static_cast<int>(lua_tointeger(luaState, 1)), static_cast<int>(lua_tointeger(luaState, 2)));
@@ -54,8 +51,7 @@ static int mouse_move(lua_State *luaState)
 // Lua mouse.click
 int mouse_click(lua_State *luaState)
 {
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1))
 	{
 		lua_module->mouseController.Click(static_cast<EMouseButton>(static_cast<int>(lua_tointeger(luaState, 1))));
@@ -66,8 +62,7 @@ int mouse_click(lua_State *luaState)
 // Lua mouse.press
 int mouse_press(lua_State *luaState)
 {
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1) && lua_isboolean(luaState, 2))
 	{
 		lua_module->mouseController.Press(static_cast<EMouseButton>(static_cast<int>(lua_tointeger(luaState, 1))), lua_toboolean(luaState, 2));
@@ -79,8 +74,7 @@ int mouse_press(lua_State *luaState)
 int mouse_isDown(lua_State *luaState)
 {
 	int ret(0);
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1))
 	{
 		lua_pushboolean(luaState, lua_module->mouseController.IsDown(static_cast<EMouseButton>(lua_tointeger(luaState, 1))));
@@ -92,8 +86,7 @@ int mouse_isDown(lua_State *luaState)
 // mouse.scroll
 int mouse_scroll(lua_State *luaState)
 {
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1))
 	{
 		lua_module->mouseController.Scroll(static_cast<int>(lua_tointeger(luaState, 1)));
@@ -104,8 +97,7 @@ int mouse_scroll(lua_State *luaState)
 // Lua keyboard.click
 int keyboard_click(lua_State *luaState)
 {
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1))
 	{
 		lua_module->keyboardController.Click(static_cast<int>(lua_tointeger(luaState, 1)));
@@ -116,8 +108,7 @@ int keyboard_click(lua_State *luaState)
 // Lua keyboard.press
 int keyboard_press(lua_State *luaState)
 {
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1) && lua_isboolean(luaState, 2))
 	{
 		lua_module->keyboardController.Press(static_cast<int>(lua_tointeger(luaState, 1)), lua_toboolean(luaState, 2));
@@ -128,8 +119,7 @@ int keyboard_press(lua_State *luaState)
 // Lua keyboard.input
 int keyboard_input(lua_State *luaState)
 {
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isstring(luaState, 1))
 	{
 		lua_module->keyboardController.Input(lua_tostring(luaState, 1));
@@ -141,8 +131,7 @@ int keyboard_input(lua_State *luaState)
 int xinput_isConnected(lua_State *luaState)
 {
 	int ret(0);
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1))
 	{
 		lua_pushboolean(luaState, lua_module->xinputController.IsConnected(static_cast<int>(lua_tointeger(luaState, 1)) - 1));
@@ -155,8 +144,7 @@ int xinput_isConnected(lua_State *luaState)
 int xinput_getButtons(lua_State *luaState)
 {
 	int ret(0);
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1))
 	{
 		lua_pushinteger(luaState, lua_module->xinputController.GetButtons(static_cast<int>(lua_tointeger(luaState, 1)) - 1));
@@ -169,8 +157,7 @@ int xinput_getButtons(lua_State *luaState)
 int xinput_getAxis(lua_State *luaState)
 {
 	int ret(0);
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1) && lua_isinteger(luaState, 2))
 	{
 		lua_pushnumber(luaState, lua_module->xinputController.GetAxis(static_cast<int>(lua_tointeger(luaState, 1)) - 1, static_cast<EXInputAxis>(lua_tointeger(luaState, 2))));
@@ -182,8 +169,7 @@ int xinput_getAxis(lua_State *luaState)
 // Lua xinput.setVibration
 int xinput_setVibration(lua_State *luaState)
 {
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1) && lua_isnumber(luaState, 2) && lua_isnumber(luaState, 3))
 	{
 		lua_module->xinputController.SetVibration(static_cast<int>(lua_tointeger(luaState, 1)) - 1, static_cast<float>(lua_tonumber(luaState, 2)), static_cast<float>(lua_tonumber(luaState, 3)));
@@ -195,8 +181,7 @@ int xinput_setVibration(lua_State *luaState)
 int xinput_getAudioDeviceIDs(lua_State *luaState)
 {
 	int ret(0);
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1))
 	{
 		wstring render_device_id;
@@ -213,8 +198,7 @@ int xinput_getAudioDeviceIDs(lua_State *luaState)
 int xinput_getBatteryInformation(lua_State *luaState)
 {
 	int ret(0);
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1) && lua_isinteger(luaState, 2))
 	{
 		XInputBatteryInformation batteryInformation(lua_module->xinputController.GetBatteryInformation(static_cast<int>(lua_tointeger(luaState, 1)) - 1, static_cast<EXInputBatteryDeviceType>(lua_tointeger(luaState, 2))));
@@ -229,8 +213,7 @@ int xinput_getBatteryInformation(lua_State *luaState)
 int xinput_getCapabilities(lua_State *luaState)
 {
 	int ret(0);
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1) && lua_isinteger(luaState, 2))
 	{
 		XInputCapabilities capabilities(lua_module->xinputController.GetCapabilities(static_cast<int>(lua_tointeger(luaState, 1)) - 1));
@@ -255,8 +238,7 @@ int xinput_getCapabilities(lua_State *luaState)
 int xinput_getKeystroke(lua_State *luaState)
 {
 	int ret(0);
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isinteger(luaState, 1) && lua_isinteger(luaState, 2))
 	{
 		XInputKeystroke keystroke(lua_module->xinputController.GetKeystroke(static_cast<int>(lua_tointeger(luaState, 1)) - 1));
@@ -273,8 +255,7 @@ int xinput_getKeystroke(lua_State *luaState)
 // Lua runtime.exit
 int runtime_exit(lua_State *luaState)
 {
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module)
 	{
 		lua_module->SetExitSignal();
@@ -285,8 +266,7 @@ int runtime_exit(lua_State *luaState)
 // Lua event.register
 int event_register(lua_State *luaState)
 {
-	lua_getglobal(luaState, luaModulePointerName);
-	LuaModule *lua_module(reinterpret_cast<LuaModule *>(lua_touserdata(luaState, -1)));
+	LuaModule *lua_module(instances[luaState]);
 	if (lua_module && lua_isstring(luaState, 1) && lua_isfunction(luaState, 2))
 	{
 		string name = lua_tostring(luaState, 1);
@@ -363,8 +343,7 @@ LuaModule::LuaModule(string _source, bool _isFile, ELuaModuleLibraries libraries
 	luaState = luaL_newstate();
 	if (luaState)
 	{
-		lua_pushlightuserdata(luaState, this);
-		lua_setglobal(luaState, luaModulePointerName);
+		instances[luaState] = this;
 		if (libraries & ELuaModuleLibraries_Essential)
 		{
 			luaL_openlibs(luaState);
@@ -526,5 +505,7 @@ void LuaModule::Close()
 	if (luaState)
 	{
 		lua_close(luaState);
+		instances.erase(luaState);
+		luaState = nullptr;
 	}
 }
