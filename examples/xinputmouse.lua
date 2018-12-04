@@ -23,12 +23,14 @@ end
 
 -- Init event
 event.register('init', function()
-	print('init')
+	print('==================')
+	print('=  XInput mouse  =')
+	print('= Made by BigETI =')
+	print('==================')
 end)
 
 -- Tick Event
 event.register('tick', function()
-	--print('tick')
 	local exit_combination = xinput.start | xinput.back | xinput.leftShoulder | xinput.rightShoulder
 	for i=1, 4 do
 		if xinput.isConnected(i) then
@@ -91,9 +93,4 @@ event.register('tick', function()
 			end
 		end
 	end
-end)
-
--- Exit event
-event.register('exit', function()
-	print('exit')
 end)
