@@ -1,28 +1,44 @@
 #ifndef __MOONLIGHT_CONTROLLER_E_INPUT_AXIS_H__
 #	define __MOONLIGHT_CONTROLLER_E_INPUT_AXIS_H__
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// XInput axis enumerator
+	/// <summary>
+	/// XInput axis enumerator
+	/// </summary>
 	enum EXInputAxis
 	{
-		// Thumb LX
+		/// <summary>
+		/// Thumb LX
+		/// </summary>
 		EXInputAxis_ThumbLX,
 
-		// Thumb LY
+		/// <summary>
+		/// Thumb LY
+		/// </summary>
 		EXInputAxis_ThumbLY,
 
-		// Thumb RX
+		/// <summary>
+		/// Thumb RX
+		/// </summary>
 		EXInputAxis_ThumbRX,
 
-		// Thumb RY
+		/// <summary>
+		/// Thumb RY
+		/// </summary>
 		EXInputAxis_ThumbRY,
 
-		// Left trigger
+		/// <summary>
+		/// Left trigger
+		/// </summary>
 		EXInputAxis_LeftTrigger,
 
-		// Right trigger
+		/// <summary>
+		/// Right trigger
+		/// </summary>
 		EXInputAxis_RightTrigger
 	};
 }

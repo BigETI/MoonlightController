@@ -9,54 +9,97 @@
 #		include <libmoonlightcontroller/Linux/UserInputOutput.h>
 #	endif
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// Mouse controller class
+	/// <summary>
+	/// Mouse controller class
+	/// </summary>
 	class MouseController
 	{
 	private:
-		
-		#if defined(MOONLIGHT_CONTROLLER_LINUX)
-		
-		// User input output
+
+#if defined(MOONLIGHT_CONTROLLER_LINUX)
+
+		/// <summary>
+		/// User input output
+		/// </summary>
 		UserInputOutput userInputOutput;
 
-		#endif
+#endif
 
-		// Copy constructor
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
+		/// <param name="">Mouse controller</param>
 		MouseController(const MouseController &);
 
-		// Assign operator
+		/// <summary>
+		/// Assign operator
+		/// </summary>
+		/// <param name="">Mouse controller</param>
+		/// <returns>This</returns>
 		MouseController & operator = (const MouseController &);
 
 	public:
 
-		// Default constructor
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		MouseController();
 
-		// Destructor
+		/// <summary>
+		/// Destructor
+		/// </summary>
 		~MouseController();
 
-		// Set mouse position
+		/// <summary>
+		/// Set mouse position
+		/// </summary>
+		/// <param name="x">Mouse X</param>
+		/// <param name="y">Mouse Y</param>
 		void SetPosition(int x, int y);
 
-		// Get mouse position
-		Position GetPosition();
+		/// <summary>
+		/// Get mouse position
+		/// </summary>
+		/// <param name="position">Mouse position</param>
+		/// <returns>Mouse position</returns>
+		Position & GetPosition(Position & position);
 
-		// Move mouse (relative)
+		/// <summary>
+		/// Move mouse (relative)
+		/// </summary>
+		/// <param name="x">Mouse X</param>
+		/// <param name="y">Mouse Y</param>
 		void Move(int x, int y);
 
-		// Mouse click
-		void Click(EMouseButton mouseButton);
+		/// <summary>
+		/// Mouse click
+		/// </summary>
+		/// <param name="mouseButton">Mouse button</param>
+		void Click(EMouseButton button);
 
-		// Mouse press
-		void Press(EMouseButton mouseButton, bool down);
+		/// <summary>
+		/// Mouse press
+		/// </summary>
+		/// <param name="button">Mouse button</param>
+		/// <param name="down">Press down</param>
+		void Press(EMouseButton button, bool down);
 
-		// Is mouse down
-		bool IsDown(EMouseButton mouseButton);
+		/// <summary>
+		/// Is mouse down
+		/// </summary>
+		/// <param name="button">Mouse button</param>
+		/// <returns>"true" if mouse button is down, otherwise "false"</returns>
+		bool IsDown(EMouseButton button);
 
-		// Scroll mouse wheel
+		/// <summary>
+		/// Scroll mouse wheel
+		/// </summary>
+		/// <param name="scroll">Scroll</param>
 		void Scroll(int scroll);
 	};
 }

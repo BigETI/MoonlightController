@@ -2,7 +2,6 @@
 
 #include <libmoonlightcontroller/KeyboardController.h>
 #include <libmoonlightcontroller/Platform.h>
-#include <set>
 
 using namespace MoonlightController;
 using namespace std;
@@ -11,8 +10,14 @@ using namespace std;
 #	include <linux/uinput.h>
 #endif
 
+/// <summary>
+/// Is keyboard key down
+/// </summary>
 static set<int> isDown;
 
+/// <summary>
+/// Default constructor
+/// </summary>
 KeyboardController::KeyboardController()
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 	: userInputOutput(EUserInputOutputType_Keyboard, "Moonlight controller (Keyboard)")
@@ -21,23 +26,29 @@ KeyboardController::KeyboardController()
 	//
 }
 
+/// <summary>
+/// Destructor
+/// </summary>
 KeyboardController::~KeyboardController()
 {
 	//
 }
 
-void KeyboardController::Click(int key)
+/// <summary>
+/// Click keyboard key
+/// </summary>
+/// <param name="key">Key code</param>
+void KeyboardController::Click(int keyCode)
 {
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
-	userInputOutput.write(EV_KEY, key, 1);
+	userInputOutput.write(EV_KEY, keyCode, 1);
 	userInputOutput.write(EV_SYN, SYN_REPORT, 0);
-	userInputOutput.write(EV_KEY, key, 0);
+	userInputOutput.write(EV_KEY, keyCode, 0);
 	userInputOutput.write(EV_SYN, SYN_REPORT, 0);
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
-	INPUT in;
-	memset(&in, 0, sizeof(INPUT));
+	INPUT in = { 0 };
 	in.type = INPUT_KEYBOARD;
-	in.ki.wVk = static_cast<WORD>(key);
+	in.ki.wVk = static_cast<WORD>(keyCode);
 	in.ki.dwExtraInfo = GetMessageExtraInfo();
 	SendInput(1, &in, sizeof(INPUT));
 	in.ki.dwFlags = KEYEVENTF_KEYUP;
@@ -45,58 +56,70 @@ void KeyboardController::Click(int key)
 	SendInput(1, &in, sizeof(INPUT));
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-	// To-do
+	// TODO
 #endif
 }
 
-void KeyboardController::Press(int key, bool down)
+/// <summary>
+/// Press keyboard key
+/// </summary>
+/// <param name="key">Key code</param>
+/// <param name="down">Press down</param>
+void KeyboardController::Press(int keyCode, bool down)
 {
-	if (down ? (!IsDown(key)) : IsDown(key))
+	if (down ? (!IsDown(keyCode)) : IsDown(keyCode))
 	{
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
-		userInputOutput.write(EV_KEY, key, down ? 1 : 0);
+		userInputOutput.write(EV_KEY, keyCode, down ? 1 : 0);
 		userInputOutput.write(EV_SYN, SYN_REPORT, 0);
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
-		INPUT in;
-		memset(&in, 0, sizeof(INPUT));
+		INPUT in = { 0 };
 		in.type = INPUT_KEYBOARD;
-		in.ki.wVk = static_cast<WORD>(key);
+		in.ki.wVk = static_cast<WORD>(keyCode);
 		if (!down)
 		{
 			in.ki.dwFlags = KEYEVENTF_KEYUP;
 		}
 		SendInput(1, &in, sizeof(INPUT));
-		
+
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-		// To-do
+		// TODO
 #endif
 		if (down)
 		{
-			isDown.insert(key);
+			isDown.insert(keyCode);
 		}
 		else
 		{
-			isDown.erase(isDown.find(key));
+			isDown.erase(isDown.find(keyCode));
 		}
 	}
 }
 
-bool MoonlightController::KeyboardController::IsDown(int key)
+/// <summary>
+/// Is keyboard key down
+/// </summary>
+/// <param name="keyCode">Key code</param>
+/// <returns>"true" if keyboard key is down, otherwise "false"</returns>
+bool KeyboardController::IsDown(int keyCode)
 {
-	return (isDown.find(key) != isDown.end());
+	return (isDown.find(keyCode) != isDown.end());
 }
 
-void KeyboardController::Input(string input)
+/// <summary>
+/// Text input
+/// </summary>
+/// <param name="input">Text input</param>
+void KeyboardController::Input(const string & input)
 {
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 #	error Implement function here
-	// To-do
+	// TODO
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
-	INPUT in;
-	memset(&in, 0, sizeof(INPUT));
+	INPUT in = { 0 };
 	in.type = INPUT_KEYBOARD;
-	for (char c : input)
+	for (const char & c : input)
 	{
 		in.ki.wScan = c;
 		in.ki.dwFlags = KEYEVENTF_UNICODE;
@@ -108,6 +131,6 @@ void KeyboardController::Input(string input)
 	}
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-	// To-do
+	// TODO
 #endif
-	}
+}

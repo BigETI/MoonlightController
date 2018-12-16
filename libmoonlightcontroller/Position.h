@@ -1,33 +1,56 @@
 #ifndef __MOONLIGHT_CONTROLLER_POSITION_H__
 #	define __MOONLIGHT_CONTROLLER_POSITION_H__
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// Position class
+	/// <summary>
+	/// Position class
+	/// </summary>
 	class Position
 	{
 	public:
-		// X
+		/// <summary>
+		/// X
+		/// </summary>
 		int x;
 
-		// Y
+		/// <summary>
+		/// Y
+		/// </summary>
 		int y;
 
-		// Default constructor
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		Position();
 
-		// Copy constructor
-		Position(const Position &position);
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
+		/// <param name="position">Position</param>
+		Position(const Position & position);
 
-		// Constructor
-		Position(int _x, int _y);
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="x">X</param>
+		/// <param name="y">Y</param>
+		Position(int x, int y);
 
-		// Destructor
+		/// <summary>
+		/// Destructor
+		/// </summary>
 		~Position();
 
-		// Assign operator
-		Position &operator=(const Position &position);
+		/// <summary>
+		/// Assign operator
+		/// </summary>
+		/// <param name="position">Position</param>
+		/// <returns>This</returns>
+		Position & operator = (const Position & position);
 	};
 }
 #endif

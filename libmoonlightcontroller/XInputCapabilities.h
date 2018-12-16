@@ -6,63 +6,112 @@
 #	include <libmoonlightcontroller/EXInputDeviceFeatures.h>
 #	include <libmoonlightcontroller/EXInputButtons.h>
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// XInput capabilities class
+	/// <summary>
+	/// XInput capabilities class
+	/// </summary>
 	class XInputCapabilities
 	{
 	public:
 
-		// Device type
+		/// <summary>
+		/// Device type
+		/// </summary>
 		EXInputDeviceType deviceType;
 
-		// Device subtype
+		/// <summary>
+		/// Device subtype
+		/// </summary>
 		EXInputDeviceSubType deviceSubType;
 
-		// Device features
+		/// <summary>
+		/// Device features
+		/// </summary>
 		EXInputDeviceFeatures deviceFeatures;
 
-		// Buttons
+		/// <summary>
+		/// Buttons
+		/// </summary>
 		EXInputButtons buttons;
 
-		// Left trigger
+		/// <summary>
+		/// Left trigger
+		/// </summary>
 		float leftTrigger;
 
-		// Right trigger
+		/// <summary>
+		/// Right trigger
+		/// </summary>
 		float rightTrigger;
 
-		// Thumb LX
+		/// <summary>
+		/// Thumb LX
+		/// </summary>
 		float thumbLX;
 
-		// Thumb LY
+		/// <summary>
+		/// Thumb LY
+		/// </summary>
 		float thumbLY;
 
-		// Thumb RX
+		/// <summary>
+		/// Thumb RX
+		/// </summary>
 		float thumbRX;
 
-		// Thumb RY
+		/// <summary>
+		/// Thumb RY
+		/// </summary>
 		float thumbRY;
 
-		// Left motor
+		/// <summary>
+		/// Left motor
+		/// </summary>
 		float leftMotor;
 
-		// Right motor
+		/// <summary>
+		/// Right motor
+		/// </summary>
 		float rightMotor;
 
-		// Default constructor
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		XInputCapabilities();
 
-		// Copy constructor
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
+		/// <param name="capabilities">Capabilities</param>
 		XInputCapabilities(const XInputCapabilities & capabilities);
 
-		// Constructor
-		XInputCapabilities(EXInputDeviceType _deviceType, EXInputDeviceSubType _deviceSubType, EXInputDeviceFeatures _deviceFeatures, EXInputButtons _buttons, float _leftTrigger, float _rightTrigger, float _thumbLX, float _thumbLY, float _thumbRX, float _thumbRY, float _leftMotor, float _rightMotor);
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="deviceType">Device type</param>
+		/// <param name="deviceSubType">Device sub-type</param>
+		/// <param name="deviceFeatures">Device feature</param>
+		/// <param name="buttons">Buttons</param>
+		/// <param name="leftTrigger">Left trigger</param>
+		/// <param name="rightTrigger">Right trigger</param>
+		/// <param name="thumbLX">THumb LX</param>
+		/// <param name="thumbLY">Thumb LY</param>
+		/// <param name="thumbRX">Thumb RX</param>
+		/// <param name="thumbRY">Thumb RY</param>
+		/// <param name="leftMotor">Left motor</param>
+		/// <param name="rightMotor">Right motor</param>
+		XInputCapabilities(EXInputDeviceType deviceType, EXInputDeviceSubType deviceSubType, EXInputDeviceFeatures deviceFeatures, EXInputButtons buttons, float leftTrigger, float rightTrigger, float thumbLX, float thumbLY, float thumbRX, float thumbRY, float leftMotor, float rightMotor);
 
-		// Assign operator
+		/// <summary>
+		/// Assign operator
+		/// </summary>
+		/// <param name="capabilities">XInput Capabilities</param>
+		/// <returns>This</returns>
 		XInputCapabilities & operator = (const XInputCapabilities & capabilities);
-
-
 	};
 }
 #endif

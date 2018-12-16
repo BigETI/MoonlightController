@@ -2,52 +2,84 @@
 #	define __MOONLIGHT_CONTROLLER_KEYBOARD_CONTROLLER_H__
 
 #	include <libmoonlightcontroller/Platform.h>
+#	include <set>
 #	include <string>
 
 #	if defined(MOONLIGHT_CONTROLLER_LINUX)
 #		include <libmoonlightcontroller/Linux/UserInputOutput.h>
 #	endif
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// Keyboard controller class
+	/// <summary>
+	/// Keybaord controller class
+	/// </summary>
 	class KeyboardController
 	{
 	private:
 
 		#if defined(MOONLIGHT_CONTROLLER_LINUX)
 
-		// User input
+		/// <summary>
+		/// User input
+		/// </summary>
 		UserInputOutput userInputOutput;
 
 		#endif
 
-		// Copy constructor
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
+		/// <param name="">Keyboard controller</param>
 		KeyboardController(const KeyboardController &);
 
-		// Assign operator
+		/// <summary>
+		/// Assign operator
+		/// </summary>
+		/// <param name="">Keyboard controller</param>
+		/// <returns>This</returns>
 		KeyboardController & operator = (const KeyboardController &);
 
 	public:
 
-		// Default constructor
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		KeyboardController();
 
-		// Destructor
+		/// <summary>
+		/// Destructor
+		/// </summary>
 		~KeyboardController();
 
-		// Click key
-		void Click(int key);
+		/// <summary>
+		/// Click keyboard key
+		/// </summary>
+		/// <param name="key">Key code</param>
+		void Click(int keyCode);
 
-		// Press key
-		void Press(int key, bool down);
+		/// <summary>
+		/// Press keyboard key
+		/// </summary>
+		/// <param name="key">Key code</param>
+		/// <param name="down">Press down</param>
+		void Press(int keyCode, bool down);
 
-		// Is key down
-		bool IsDown(int key);
+		/// <summary>
+		/// Is keyboard key down
+		/// </summary>
+		/// <param name="keyCode">Key code</param>
+		/// <returns>"true" if keyboard key is down, otherwise "false"</returns>
+		bool IsDown(int keyCode);
 
-		// Text input
-		void Input(std::string input);
+		/// <summary>
+		/// Text input
+		/// </summary>
+		/// <param name="input">Text input</param>
+		void Input(const std::string & input);
 	};
 }
 #endif

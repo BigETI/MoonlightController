@@ -1,19 +1,29 @@
 #ifndef __MOONLIGHT_CONTROLLER_E_XINPUT_KEYBOARD_STATE_H__
 #	define __MOONLIGHT_CONTROLLER_E_XINPUT_KEYBOARD_STATE_H__
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// XInput keyboard states enumerator
+	/// <summary>
+	/// XInput keyboard states enumerator
+	/// </summary>
 	enum EXInputKeyboardStates
 	{
-		// Key down
+		/// <summary>
+		/// Key down
+		/// </summary>
 		EXInputKeyboardStates_KeyDown = 0x1,
 
-		// Key up
+		/// <summary>
+		/// Key up
+		/// </summary>
 		EXInputKeyboardStates_KeyUp = 0x2,
 
-		// Repeat
+		/// <summary>
+		/// Repeat
+		/// </summary>
 		EXInputKeyboardStates_Repeat = 0x4
 	};
 }

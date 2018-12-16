@@ -1,25 +1,39 @@
 #ifndef __MOONLIGHT_CONTROLLER_E_XINPUT_DEVICE_FEATURES_H__
 #	define __MOONLIGHT_CONTROLLER_E_XINPUT_DEVICE_FEATURES_H__
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// XInput device features enumerator
+	/// <summary>
+	/// XInput device features enumerator
+	/// </summary>
 	enum EXInputDeviceFeatures
 	{
-		// Force feedback supported
+		/// <summary>
+		/// Force feedback supported
+		/// </summary>
 		EXInputDeviceFeatures_FFBSupported = 0x1,
 
-		// Wireless
+		/// <summary>
+		/// Wireless
+		/// </summary>
 		EXInputDeviceFeatures_Wireless = 0x2,
 
-		// Voice supported
+		/// <summary>
+		/// Voice supported
+		/// </summary>
 		EXInputDeviceFeatures_VoiceSupported = 0x4,
 
-		// Plug-in modules supported
+		/// <summary>
+		/// Plug-in modules supported
+		/// </summary>
 		EXInputDeviceFeatures_PMDSupported = 0x8,
 
-		// No navigation buttons
+		/// <summary>
+		/// No navigation buttons
+		/// </summary>
 		EXInputDeviceFeatures_NoNavigation = 0x10
 	};
 }

@@ -6,75 +6,125 @@
 #	include <string>
 #	include <map>
 #	include <vector>
+#	include <locale>
+#	include <codecvt>
 #	include <libmoonlightcontroller/ELuaModuleLibraries.h>
 #	include <libmoonlightcontroller/KeyboardController.h>
 #	include <libmoonlightcontroller/MouseController.h>
 #	include <libmoonlightcontroller/XInputController.h>
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// Lua module class
+	/// <summary>
+	/// Lua module class
+	/// </summary>
 	class LuaModule
 	{
 	private:
 
-		// Lua state
+		/// <summary>
+		/// Lua state
+		/// </summary>
 		lua_State *luaState;
 
-		// Is file
+		/// <summary>
+		/// Is file
+		/// </summary>
 		bool isFile;
 
-		// Source (File name or source code)
+		/// <summary>
+		/// Source (File name or source code)
+		/// </summary>
 		std::string source;
 
-		// Exit signal
+		/// <summary>
+		/// Exit signal
+		/// </summary>
 		bool exitSignal;
 
-		// Default contructor
+		/// <summary>
+		/// Default contructor
+		/// </summary>
 		LuaModule();
 
-		// Copy constructor
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
+		/// <param name="">Lua module</param>
 		LuaModule(const LuaModule &);
 
-		// Assign operator
+		/// <summary>
+		/// Assign operator
+		/// </summary>
+		/// <param name="">Lua module</param>
+		/// <returns>This</returns>
 		LuaModule &operator=(const LuaModule &);
 
 	MOONLIGHT_CONTROLLER_PRIVATE:
 
-		// Events
+		/// <summary>
+		/// Events
+		/// </summary>
 		std::map<std::string, std::vector<int>> events;
 
-		// Keyboard controller
+		/// <summary>
+		/// Keyboard controller
+		/// </summary>
 		KeyboardController keyboardController;
-		
-		// Mouse controller
+
+		/// <summary>
+		/// Mouse controller
+		/// </summary>
 		MouseController mouseController;
 
-		// XInput controller
+		/// <summary>
+		/// XInput controller
+		/// </summary>
 		XInputController xinputController;
 
-		// Set exit signal
+		/// <summary>
+		/// Set exit signal
+		/// </summary>
 		void SetExitSignal();
 
 	public:
 
-		// Constructor
-		LuaModule(std::string _source, bool _isFile, ELuaModuleLibraries libraries);
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="source">Source</param>
+		/// <param name="isFile">Is file</param>
+		/// <param name="libraries">Libraries</param>
+		LuaModule(const std::string & source, bool isFile, ELuaModuleLibraries libraries);
 
-		// Destructor
+		/// <summary>
+		/// Destructor
+		/// </summary>
 		~LuaModule();
 
-		// Is module active
+		/// <summary>
+		/// Is module active
+		/// </summary>
+		/// <returns>"true" if active, otherwise "false"</returns>
 		bool IsActive();
 
-		// Execute module
+		/// <summary>
+		/// Execute module
+		/// </summary>
 		void Execute();
 
-		// Invoke event
-		void InvokeEvent(std::string eventName);
+		/// <summary>
+		/// Invoke event
+		/// </summary>
+		/// <param name="eventName">Event name</param>
+		void InvokeEvent(const std::string & eventName);
 
-		// Close module
+		/// <summary>
+		/// Close module
+		/// </summary>
 		void Close();
 	};
 }

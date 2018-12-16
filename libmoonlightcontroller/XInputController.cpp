@@ -12,6 +12,9 @@
 using namespace MoonlightController;
 using namespace std;
 
+/// <summary>
+/// Default constructor
+/// </summary>
 XInputController::XInputController()
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 	: userInputOutput(EUserInputOutputType_Gamepad, "Moonlight controller (Gamepad)")
@@ -20,46 +23,65 @@ XInputController::XInputController()
 	//
 }
 
+/// <summary>
+/// Destructor
+/// </summary>
 XInputController::~XInputController()
 {
 	//
 }
 
+/// <summary>
+/// Is controller connected
+/// </summary>
+/// <param name="controllerID">Controller ID</param>
+/// <returns>"true" if connected, otherwise "false"</returns>
 bool XInputController::IsConnected(int controllerID)
 {
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 #	error Implement function here
-	// To-do
+	// TODO
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
 	XINPUT_STATE state;
 	return (XInputGetState(static_cast<DWORD>(controllerID), &state) == 0L);
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-	// To-do
+	// TODO
 #endif
 }
 
+/// <summary>
+/// Get controller buttons
+/// </summary>
+/// <param name="controllerID">Controller ID</param>
+/// <returns>Controller buttons</returns>
 EXInputButtons XInputController::GetButtons(int controllerID)
 {
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 #	error Implement function here
-	// To-do
+	// TODO
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
 	XINPUT_STATE state;
 	XInputGetState(static_cast<DWORD>(controllerID), &state);
 	return static_cast<EXInputButtons>(state.Gamepad.wButtons);
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-	// To-do
+	// TODO
 #endif
 }
 
+/// <summary>
+/// Get controller axis
+/// </summary>
+/// <param name="controllerID">Controller ID</param>
+/// <param name="axis">Axis</param>
+/// <returns>Axis value between -1.0 and 1.0</returns>
 float XInputController::GetAxis(int controllerID, EXInputAxis axis)
 {
 	float ret(0.0f);
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 #	error Implement function here
-	// To-do
+	// TODO
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
 	XINPUT_STATE state;
 	if (XInputGetState(static_cast<DWORD>(controllerID), &state) == 0L)
@@ -88,16 +110,22 @@ float XInputController::GetAxis(int controllerID, EXInputAxis axis)
 	}
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-// To-do
+	// TODO
 #endif
 	return ret;
 }
 
+/// <summary>
+/// Set controller vibration
+/// </summary>
+/// <param name="controllerID">Controller ID</param>
+/// <param name="leftMotor">Left motor</param>
+/// <param name="rightMotor">Right motor</param>
 void XInputController::SetVibration(int controllerID, float leftMotor, float rightMotor)
 {
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 #	error Implement function here
-	// To-do
+	// TODO
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
 	XINPUT_VIBRATION vibration;
 	if (leftMotor > 1.0f)
@@ -121,102 +149,126 @@ void XInputController::SetVibration(int controllerID, float leftMotor, float rig
 	XInputSetState(controllerID, &vibration);
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-// To-do
+	// TODO
 #endif
 }
 
+/// <summary>
+/// Get controller audio device IDs
+/// </summary>
+/// <param name="controllerID">Controller ID</param>
+/// <param name="renderDeviceID">Render device ID</param>
+/// <param name="captureDeviceID">Capture device ID</param>
 void XInputController::GetAudioDeviceIDs(int controllerID, wstring & renderDeviceID, wstring & captureDeviceID)
 {
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 #	error Implement function here
-	// To-do
+	// TODO
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
-	wchar_t render_device_id[256] = { L'\0' };
-	unsigned int render_device_id_len = 256;
-	wchar_t capture_device_id[256] = { L'\0' };
-	unsigned int capture_device_id_len = 256;
+	wstring render_device_id(256UL, L'\0');
+	unsigned int render_device_id_len(256U);
+	wstring capture_device_id(256UL, L'\0');
+	unsigned int capture_device_id_len(256U);
 	renderDeviceID.clear();
 	captureDeviceID.clear();
-	if (XInputGetAudioDeviceIds(static_cast<WORD>(controllerID), render_device_id, &render_device_id_len, capture_device_id, &capture_device_id_len) == ERROR_SUCCESS)
+	if (XInputGetAudioDeviceIds(static_cast<WORD>(controllerID), &(render_device_id[0]), &render_device_id_len, &(capture_device_id[0]), &capture_device_id_len) == ERROR_SUCCESS)
 	{
+		render_device_id.resize(render_device_id_len, L'\0');
+		capture_device_id.resize(capture_device_id_len, L'\0');
 		renderDeviceID = render_device_id;
 		captureDeviceID = capture_device_id;
 	}
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-// To-do
+	// TODO
 #endif
 }
 
-XInputBatteryInformation XInputController::GetBatteryInformation(int controllerID, EXInputBatteryDeviceType batteryDeviceType)
+/// <summary>
+/// Get controller battery information
+/// </summary>
+/// <param name="controllerID">Controller ID</param>
+/// <param name="batteryDeviceType">Battery device type</param>
+/// <param name="batteryInformation">Battery information</param>
+/// <returns>Battery information</returns>
+XInputBatteryInformation & XInputController::GetBatteryInformation(int controllerID, EXInputBatteryDeviceType batteryDeviceType, XInputBatteryInformation & batteryInformation)
 {
-	XInputBatteryInformation ret;
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 #	error Implement function here
-	// To-do
+	// TODO
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
-	XINPUT_BATTERY_INFORMATION battery_information;
+	XINPUT_BATTERY_INFORMATION battery_information = { 0 };
 	if (XInputGetBatteryInformation(static_cast<WORD>(controllerID), batteryDeviceType, &battery_information) == ERROR_SUCCESS)
 	{
-		ret.batteryType = static_cast<EXInputBatteryType>(battery_information.BatteryType);
-		ret.batteryLevel = static_cast<EXInputBatteryLevel>(battery_information.BatteryLevel);
+		batteryInformation.batteryType = static_cast<EXInputBatteryType>(battery_information.BatteryType);
+		batteryInformation.batteryLevel = static_cast<EXInputBatteryLevel>(battery_information.BatteryLevel);
 	}
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-	// To-do
+	// TODO
 #endif
-	return ret;
+	return batteryInformation;
 }
 
-XInputCapabilities XInputController::GetCapabilities(int controllerID)
+/// <summary>
+/// Get controller XInput capabilities
+/// </summary>
+/// <param name="controllerID">Controller ID</param>
+/// <param name="capabilties">Controller XInput capabilities</param>
+/// <returns>Controller XInput capabilities</returns>
+XInputCapabilities & XInputController::GetCapabilities(int controllerID, XInputCapabilities & capabilities)
 {
-	XInputCapabilities ret;
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 #	error Implement function here
-	// To-do
+	// TODO
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
-	XINPUT_CAPABILITIES capabilities;
-	if (XInputGetCapabilities(static_cast<WORD>(controllerID), XINPUT_FLAG_GAMEPAD, &capabilities) == ERROR_SUCCESS)
+	XINPUT_CAPABILITIES xinput_capabilities = { 0 };
+	if (XInputGetCapabilities(static_cast<WORD>(controllerID), XINPUT_FLAG_GAMEPAD, &xinput_capabilities) == ERROR_SUCCESS)
 	{
-		ret.deviceType = static_cast<EXInputDeviceType>(capabilities.Type);
-		ret.deviceSubType = static_cast<EXInputDeviceSubType>(capabilities.SubType);
-		ret.deviceFeatures = static_cast<EXInputDeviceFeatures>(capabilities.Flags);
-		ret.buttons = static_cast<EXInputButtons>(capabilities.Gamepad.wButtons);
-		ret.leftTrigger = capabilities.Gamepad.bLeftTrigger / 255.0f;
-		ret.rightTrigger = capabilities.Gamepad.bRightTrigger / 255.0f;
-		ret.thumbLX = capabilities.Gamepad.sThumbLX / 32767.0f;
-		ret.thumbLY = capabilities.Gamepad.sThumbLY / 32767.0f;
-		ret.thumbRX = capabilities.Gamepad.sThumbRX / 32767.0f;
-		ret.thumbRY = capabilities.Gamepad.sThumbRY / 32767.0f;
-		ret.leftMotor = capabilities.Vibration.wLeftMotorSpeed / 65.535f;
-		ret.rightMotor = capabilities.Vibration.wRightMotorSpeed / 65.535f;
+		capabilities.deviceType = static_cast<EXInputDeviceType>(xinput_capabilities.Type);
+		capabilities.deviceSubType = static_cast<EXInputDeviceSubType>(xinput_capabilities.SubType);
+		capabilities.deviceFeatures = static_cast<EXInputDeviceFeatures>(xinput_capabilities.Flags);
+		capabilities.buttons = static_cast<EXInputButtons>(xinput_capabilities.Gamepad.wButtons);
+		capabilities.leftTrigger = xinput_capabilities.Gamepad.bLeftTrigger / 255.0f;
+		capabilities.rightTrigger = xinput_capabilities.Gamepad.bRightTrigger / 255.0f;
+		capabilities.thumbLX = xinput_capabilities.Gamepad.sThumbLX / 32767.0f;
+		capabilities.thumbLY = xinput_capabilities.Gamepad.sThumbLY / 32767.0f;
+		capabilities.thumbRX = xinput_capabilities.Gamepad.sThumbRX / 32767.0f;
+		capabilities.thumbRY = xinput_capabilities.Gamepad.sThumbRY / 32767.0f;
+		capabilities.leftMotor = xinput_capabilities.Vibration.wLeftMotorSpeed / 65.535f;
+		capabilities.rightMotor = xinput_capabilities.Vibration.wRightMotorSpeed / 65.535f;
 	}
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-	// To-do
+	// TODO
 #endif
-	return ret;
+	return capabilities;
 }
 
-XInputKeystroke XInputController::GetKeystroke(int controllerID)
+/// <summary>
+/// Get controller keystroke
+/// </summary>
+/// <param name="controllerID">Controller ID</param>
+/// <param name="keystroke">Controller keystroke</param>
+/// <returns>Controller keystroke</returns>
+XInputKeystroke & XInputController::GetKeystroke(int controllerID, XInputKeystroke & keystroke)
 {
-	XInputKeystroke ret;
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 #	error Implement function here
-	// To-do
+	// TODO
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
-	XINPUT_KEYSTROKE keystroke;
-	if (XInputGetKeystroke(static_cast<WORD>(controllerID), 0, &keystroke) == ERROR_SUCCESS)
+	XINPUT_KEYSTROKE xinput_keystroke = { 0 };
+	if (XInputGetKeystroke(static_cast<WORD>(controllerID), 0, &xinput_keystroke) == ERROR_SUCCESS)
 	{
-		ret.virtualKey = static_cast<EXInputVirtualKey>(keystroke.VirtualKey);
-		ret.unicode = keystroke.Unicode;
-		ret.keyboardStates = static_cast<EXInputKeyboardStates>(keystroke.Flags);
-		ret.userIndex = keystroke.UserIndex;
-		ret.hidCode = keystroke.HidCode;
+		keystroke.virtualKey = static_cast<EXInputVirtualKey>(xinput_keystroke.VirtualKey);
+		keystroke.unicode = xinput_keystroke.Unicode;
+		keystroke.keyboardStates = static_cast<EXInputKeyboardStates>(xinput_keystroke.Flags);
+		keystroke.userIndex = xinput_keystroke.UserIndex;
+		keystroke.hidCode = xinput_keystroke.HidCode;
 	}
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-	// To-do
+	// TODO
 #endif
-	return ret;
+	return keystroke;
 }

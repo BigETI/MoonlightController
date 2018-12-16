@@ -14,57 +14,113 @@
 #		include <libmoonlightcontroller/Linux/UserInputOutput.h>
 #	endif
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// XInput controller class
+	/// <summary>
+	/// XInput controller class
+	/// </summary>
 	class XInputController
 	{
 	private:
-		#if defined(MOONLIGHT_CONTROLLER_LINUX)
-		
-		// User input output
+#if defined(MOONLIGHT_CONTROLLER_LINUX)
+
+		/// <summary>
+		/// User input output
+		/// </summary>
 		UserInputOutput userInputOutput;
 
-		#endif
+#endif
 
-		// Copy constructor
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
+		/// <param name="">XInput controller</param>
 		XInputController(const XInputController &);
 
-		// Assign operator
+		/// <summary>
+		/// Assign operator
+		/// </summary>
+		/// <param name="">XInput controller</param>
+		/// <returns>This</returns>
 		XInputController & operator = (const XInputController &);
 
 	public:
 
-		// Default constructor
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		XInputController();
 
-		// Destructor
+		/// <summary>
+		/// Destructor
+		/// </summary>
 		~XInputController();
 
-		// Is controller connected
+		/// <summary>
+		/// Is controller connected
+		/// </summary>
+		/// <param name="controllerID">Controller ID</param>
+		/// <returns>"true" if connected, otherwise "false"</returns>
 		bool IsConnected(int controllerID);
 
-		// Get controller buttons
+		/// <summary>
+		/// Get controller buttons
+		/// </summary>
+		/// <param name="controllerID">Controller ID</param>
+		/// <returns>Controller buttons</returns>
 		EXInputButtons GetButtons(int controllerID);
 
-		// Get controller axis
+		/// <summary>
+		/// Get controller axis
+		/// </summary>
+		/// <param name="controllerID">Controller ID</param>
+		/// <param name="axis">Axis</param>
+		/// <returns>Axis value between -1.0 and 1.0</returns>
 		float GetAxis(int controllerID, EXInputAxis axis);
 
-		// Set controller vibration
+		/// <summary>
+		/// Set controller vibration
+		/// </summary>
+		/// <param name="controllerID">Controller ID</param>
+		/// <param name="leftMotor">Left motor</param>
+		/// <param name="rightMotor">Right motor</param>
 		void SetVibration(int controllerID, float leftMotor, float rightMotor);
 
-		// Get controller audio device IDs
+		/// <summary>
+		/// Get controller audio device IDs
+		/// </summary>
+		/// <param name="controllerID">Controller ID</param>
+		/// <param name="renderDeviceID">Render device ID</param>
+		/// <param name="captureDeviceID">Capture device ID</param>
 		void GetAudioDeviceIDs(int controllerID, std::wstring & renderDeviceID, std::wstring & captureDeviceID);
 
-		// Get controller battery information
-		XInputBatteryInformation GetBatteryInformation(int controllerID, EXInputBatteryDeviceType batteryDeviceType);
+		/// <summary>
+		/// Get controller battery information
+		/// </summary>
+		/// <param name="controllerID">Controller ID</param>
+		/// <param name="batteryDeviceType">Battery device type</param>
+		/// <param name="batteryInformation">Battery information</param>
+		/// <returns>Battery information</returns>
+		XInputBatteryInformation & GetBatteryInformation(int controllerID, EXInputBatteryDeviceType batteryDeviceType, XInputBatteryInformation & batteryInformation);
 
-		// Get controller capabilities
-		XInputCapabilities GetCapabilities(int controllerID);
+		/// <summary>
+		/// Get controller XInput capabilities
+		/// </summary>
+		/// <param name="controllerID">Controller ID</param>
+		/// <param name="capabilties">Controller XInput capabilities</param>
+		/// <returns>Controller XInput capabilities</returns>
+		XInputCapabilities & GetCapabilities(int controllerID, XInputCapabilities & capabilties);
 
-		// Get controller keystroke
-		XInputKeystroke GetKeystroke(int controllerID);
+		/// <summary>
+		/// Get controller keystroke
+		/// </summary>
+		/// <param name="controllerID">Controller ID</param>
+		/// <param name="keystroke">Controller keystroke</param>
+		/// <returns>Controller keystroke</returns>
+		XInputKeystroke & GetKeystroke(int controllerID, XInputKeystroke & keystroke);
 	};
 }
 #endif

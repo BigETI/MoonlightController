@@ -1,106 +1,174 @@
 #ifndef __MOONLIGHT_CONTROLLER_E_XINPUT_VIRTUAL_KEY_H__
 #	define __MOONLIGHT_CONTROLLER_E_XINPUT_VIRTUAL_KEY_H__
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// XInput virtual key enumerator
+	/// <summary>
+	/// XInput virtual key enumerator
+	/// </summary>
 	enum EXInputVirtualKey
 	{
-		// A
+		/// <summary>
+		/// A
+		/// </summary>
 		EXInputVirtualKey_A = 0x5800,
 
-		// B
+		/// <summary>
+		/// B
+		/// </summary>
 		EXInputVirtualKey_B = 0x5801,
 
-		// X
+		/// <summary>
+		/// X
+		/// </summary>
 		EXInputVirtualKey_X = 0x5802,
 
-		// Y
+		/// <summary>
+		/// Y
+		/// </summary>
 		EXInputVirtualKey_Y = 0x5803,
 
-		// Right shoulder
+		/// <summary>
+		/// Right shoulder
+		/// </summary>
 		EXInputVirtualKey_RightShoulder = 0x5804,
 
-		// Left shoulder
+		/// <summary>
+		/// Left shoulder
+		/// </summary>
 		EXInputVirtualKey_LeftShoulder = 0x5805,
 
-		// Left trigger
+		/// <summary>
+		/// Left trigger
+		/// </summary>
 		EXInputVirtualKey_LeftTrigger = 0x5806,
 
-		// Right trigger
+		/// <summary>
+		/// Right trigger
+		/// </summary>
 		EXInputVirtualKey_RightTrigger = 0x5807,
 
-		// D-Pad up
+		/// <summary>
+		/// D-Pad up
+		/// </summary>
 		EXInputVirtualKey_DPadUp = 0x5810,
 
-		// D-Pad down
+		/// <summary>
+		/// D-Pad down
+		/// </summary>
 		EXInputVirtualKey_DPadDown = 0x5811,
 
-		// D-Pad left
+		/// <summary>
+		/// D-Pad left
+		/// </summary>
 		EXInputVirtualKey_DPadLeft = 0x5812,
 
-		// D-Pad right
+		/// <summary>
+		/// D-Pad right
+		/// </summary>
 		EXInputVirtualKey_DPadRight = 0x5813,
 
-		// Start
+		/// <summary>
+		/// Start
+		/// </summary>
 		EXInputVirtualKey_Start = 0x5814,
 
-		// Back
+		/// <summary>
+		/// Back
+		/// </summary>
 		EXInputVirtualKey_Back = 0x5815,
 
-		// Left thumb press
+		/// <summary>
+		/// Left thumb press
+		/// </summary>
 		EXInputVirtualKey_LeftThumbPress = 0x5816,
 
-		// Right thumb press
+		/// <summary>
+		/// Right thumb press
+		/// </summary>
 		EXInputVirtualKey_RightThumbPress = 0x5817,
 
-		// Left thumb up
+		/// <summary>
+		/// Left thumb up
+		/// </summary>
 		EXInputVirtualKey_LeftThumbUp = 0x5820,
 
-		// Left thumb down
+		/// <summary>
+		/// Left thumb down
+		/// </summary>
 		EXInputVirtualKey_LeftThumbDown = 0x5821,
 
-		// Left thumb right
+		/// <summary>
+		/// Left thumb right
+		/// </summary>
 		EXInputVirtualKey_LeftThumbRight = 0x5822,
 
-		// Left thumb left
+		/// <summary>
+		/// Left thumb left
+		/// </summary>
 		EXInputVirtualKey_LeftThumbLeft = 0x5823,
 
-		// Left thumb up-left
+		/// <summary>
+		/// Left thumb up-left
+		/// </summary>
 		EXInputVirtualKey_LeftThumbUpLeft = 0x5824,
 
-		// Left thumb upright
+		/// <summary>
+		/// Left thumb upright
+		/// </summary>
 		EXInputVirtualKey_LeftThumbUpRight = 0x5825,
 
-		// Left thumb down-right
+		/// <summary>
+		/// Left thumb down-right
+		/// </summary>
 		EXInputVirtualKey_LeftThumbDownRight = 0x2826,
 
-		// Left thumb down-left
+		/// <summary>
+		/// Left thumb down-left
+		/// </summary>
 		EXInputVirtualKey_LeftThumbDownLeft = 0x5827,
 
-		// Right thumb up
+		/// <summary>
+		/// Right thumb up
+		/// </summary>
 		EXInputVirtualKey_RightThumbUp = 0x5830,
 
-		// Right thumb down
+		/// <summary>
+		/// Right thumb down
+		/// </summary>
 		EXInputVirtualKey_RightThumbDown = 0x5831,
 
-		// Right thumb right
+		/// <summary>
+		/// Right thumb right
+		/// </summary>
 		EXInputVirtualKey_RightThumbRight = 0x5832,
 
-		// Right thumb left
+		/// <summary>
+		/// Right thumb left
+		/// </summary>
 		EXInputVirtualKey_RightThumbLeft = 0x5833,
 
-		// Right thumb up-left
+		/// <summary>
+		/// Right thumb up-left
+		/// </summary>
 		EXInputVirtualKey_RightThumbUpLeft = 0x5834,
 
-		// Right thumb up-right
+		/// <summary>
+		/// Right thumb up-right
+		/// </summary>
 		EXInputVirtualKey_RightThumbUpRight = 0x5835,
 
-		// Right thumb down-right
+		/// <summary>
+		/// Right thumb down-right
+		/// </summary>
 		EXInputVirtualKey_RightThumbDownRight = 0x5836,
 
-		// Right thumb down-left
+		/// <summary>
+		/// Right thumb down-left
+		/// </summary>
 		EXInputVirtualKey_RightThumbDownLeft = 0x5837
 	};
 }

@@ -12,22 +12,34 @@ using namespace MoonlightController;
 using namespace std;
 using namespace std::chrono;
 
-// Libraries
+/// <summary>
+/// Libraries
+/// </summary>
 static ELuaModuleLibraries libraries(ELuaModuleLibraries_Recommended);
 
-// Render help
-static bool RenderHelp(vector<string> & args);
+/// <summary>
+/// Render help
+/// </summary>
+static bool RenderHelp(const vector<string> & args);
 
-// Add modules
-static bool AddModules(vector<string> & args);
+/// <summary>
+/// Add modules
+/// </summary>
+static bool AddModules(const vector<string> & args);
 
-// Change libraries
-static bool ChangeLibraries(vector<string> & args);
+/// <summary>
+/// Change libraries
+/// </summary>
+static bool ChangeLibraries(const vector<string> & args);
 
-// Modules
+/// <summary>
+/// Modules
+/// </summary>
 static map<string, LuaModule *> modules;
 
-// Arguments
+/// <summary>
+/// Arguments
+/// </summary>
 static map<string, FunctionData> argumentFunctions =
 {
 	{ "-h", { RenderHelp, "Shows this help topic", true } },
@@ -38,7 +50,11 @@ static map<string, FunctionData> argumentFunctions =
 	{ "--libraries", { ChangeLibraries, "", false } }
 };
 
-// File exists
+/// <summary>
+/// File exists
+/// </summary>
+/// <param name="name">File name</param>
+/// <returns></returns>
 inline bool FileExists(const string & name)
 {
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
@@ -56,7 +72,9 @@ inline bool FileExists(const string & name)
 #endif
 }
 
-// Clear modules
+/// <summary>
+/// Clear modules
+/// </summary>
 inline void ClearModules()
 {
 	for (pair<string, LuaModule *> module : modules)
@@ -66,11 +84,15 @@ inline void ClearModules()
 	modules.clear();
 }
 
-// Render help
-static bool RenderHelp(vector<string> & args)
+/// <summary>
+/// Render help
+/// </summary>
+/// <param name="args">Arguments</param>
+/// <returns>"false"</returns>
+static bool RenderHelp(const vector<string> & args)
 {
 	cout << "Moonlight controller help:" << endl;
-	for (pair<string, FunctionData> function : argumentFunctions)
+	for (pair<const string, FunctionData> function : argumentFunctions)
 	{
 		if (function.second.isUnique)
 		{
@@ -81,8 +103,12 @@ static bool RenderHelp(vector<string> & args)
 	return false;
 }
 
-// Add modules
-static bool AddModules(vector<string> & args)
+/// <summary>
+/// Add modules
+/// </summary>
+/// <param name="args">Arguments</param>
+/// <returns>"false"</returns>
+static bool AddModules(const vector<string> & args)
 {
 	bool ret(false);
 	map<string, LuaModule *>::iterator it, end(modules.end());
@@ -131,8 +157,12 @@ static bool AddModules(vector<string> & args)
 	return ret;
 }
 
-// Change libraries
-static bool ChangeLibraries(vector<string> & args)
+/// <summary>
+/// Change libraries
+/// </summary>
+/// <param name="args">Arguments</param>
+/// <returns>Success</returns>
+static bool ChangeLibraries(const vector<string> & args)
 {
 	bool ret(false);
 	if (args.size() == 1)
@@ -143,8 +173,13 @@ static bool ChangeLibraries(vector<string> & args)
 	return ret;
 }
 
-// Main entry point (platform independent)
-int Main(string & fileName, vector<string> & arguments)
+/// <summary>
+/// Main entry point (platform independent)
+/// </summary>
+/// <param name="fileName">File name</param>
+/// <param name="arguments">Arguments</param>
+/// <returns>Exit code</returns>
+int Main(const string & fileName, const vector<string> & arguments)
 {
 	string arg;
 	vector<string> args;
@@ -250,7 +285,14 @@ int Main(string & fileName, vector<string> & arguments)
 
 #if defined(MOONLIGHT_CONTROLLER_WINDOWS) && defined(MOONLIGHT_CONTROLLER_NO_CONSOLE_APP)
 
-// Main entry point
+/// <summary>
+/// Main entry point
+/// </summary>
+/// <param name="hInstance">Instance handle</param>
+/// <param name="hPrevInstance">Previous instance handle</param>
+/// <param name="lpCmdLine">Command line</param>
+/// <param name="nCmdShow">Command show handle</param>
+/// <returns></returns>
 int CALLBACK WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
 	string file_name(__argv[0]);
@@ -264,7 +306,12 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In
 
 #else
 
-// Main entry point
+/// <summary>
+/// Main entry point
+/// </summary>
+/// <param name="argc">Argument count</param>
+/// <param name="argv">Arguments</param>
+/// <returns></returns>
 int main(int argc, char *argv[])
 {
 	string file_name(argv[0]);

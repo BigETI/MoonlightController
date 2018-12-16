@@ -1,52 +1,84 @@
 #ifndef __MOONLIGHT_CONTROLLER_E_XINPUT_BUTTONS_H__
 #	define __MOONLIGHT_CONTROLLER_E_XINPUT_BUTTONS_H__
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// XInput buttons enumerator
+	/// <summary>
+	/// XInput buttons enumerator
+	/// </summary>
 	enum EXInputButtons
 	{
-		// D-Pad up
+		/// <summary>
+		/// D-Pad up
+		/// </summary>
 		EXInputButton_DPadUp = 0x1,
 
-		// D-Pad down
+		/// <summary>
+		/// D-Pad down
+		/// </summary>
 		EXInputButton_DPadDown = 0x2,
 
-		// D-Pad left
+		/// <summary>
+		/// D-Pad left
+		/// </summary>
 		EXInputButton_DPadLeft = 0x4,
 
-		// D-Pad right
+		/// <summary>
+		/// D-Pad right
+		/// </summary>
 		EXInputButton_DPadRight = 0x8,
 
-		// Start
+		/// <summary>
+		/// Start
+		/// </summary>
 		EXInputButton_Start = 0x10,
 
-		// Back
+		/// <summary>
+		/// Back
+		/// </summary>
 		EXInputButton_Back = 0x20,
 
-		// Left thumb
+		/// <summary>
+		/// Left thumb
+		/// </summary>
 		EXInputButton_LeftThumb = 0x40,
 
-		// Right thumb
+		/// <summary>
+		/// Right thumb
+		/// </summary>
 		EXInputButton_RightThumb = 0x80,
 
-		// Left shoulder
+		/// <summary>
+		/// Left shoulder
+		/// </summary>
 		EXInputButton_LeftShoulder = 0x100,
 
-		// Right shoulder
+		/// <summary>
+		/// Right shoulder
+		/// </summary>
 		EXInputButton_RightShoulder = 0x200,
 
-		// A
+		/// <summary>
+		/// A
+		/// </summary>
 		EXInputButton_A = 0x1000,
 
-		// B
+		/// <summary>
+		/// B
+		/// </summary>
 		EXInputButton_B = 0x2000,
 
-		// X
+		/// <summary>
+		/// X
+		/// </summary>
 		EXInputButton_X = 0x4000,
 
-		// Y
+		/// <summary>
+		/// Y
+		/// </summary>
 		EXInputButton_Y = 0x8000
 	};
 }

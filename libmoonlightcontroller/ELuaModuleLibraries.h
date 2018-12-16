@@ -1,37 +1,59 @@
 #ifndef __MOONLIGHT_CONTROLLER_E_LUA_MODULE_LIBRARY_H__
 #	define __MOONLIGHT_CONTROLLER_E_LUA_MODULE_LIBRARY_H__
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// Lua module libraries enumerator
+	/// <summary>
+	/// Lua module libraries enumerator
+	/// </summary>
 	enum ELuaModuleLibraries
 	{
-		// Essential
+		/// <summary>
+		/// Essential
+		/// </summary>
 		ELuaModuleLibraries_Essential = 0x1,
 
-		// Mouse
+		/// <summary>
+		/// Mouse
+		/// </summary>
 		ELuaModuleLibraries_Mouse = 0x2,
 
-		// Keyboard
+		/// <summary>
+		/// Keyboard
+		/// </summary>
 		ELuaModuleLibraries_Keyboard = 0x4,
 
-		// XInput
+		/// <summary>
+		/// XInput
+		/// </summary>
 		ELuaModuleLibraries_XInput = 0x8,
 
-		// Runtime
+		/// <summary>
+		/// Runtime
+		/// </summary>
 		ELuaModuleLibraries_Runtime = 0x10,
 
-		// Event
+		/// <summary>
+		/// Event
+		/// </summary>
 		ELuaModuleLibraries_Event = 0x20,
 
-		// Moonlight controller
+		/// <summary>
+		/// Moonlight controller
+		/// </summary>
 		ELuaModuleLibraries_MoonlightController = ELuaModuleLibraries_Mouse | ELuaModuleLibraries_Keyboard | ELuaModuleLibraries_XInput | ELuaModuleLibraries_Event | ELuaModuleLibraries_Runtime,
 		
-		// Recommended
+		/// <summary>
+		/// Recommended
+		/// </summary>
 		ELuaModuleLibraries_Recommended = ELuaModuleLibraries_Essential | ELuaModuleLibraries_MoonlightController,
 		
-		// All
+		/// <summary>
+		/// All
+		/// </summary>
 		ELuaModuleLibraries_All = ELuaModuleLibraries_Recommended
 	};
 }

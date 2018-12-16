@@ -1,22 +1,34 @@
 #ifndef __MOONLIGHT_CONTROLLER_E_XINPUT_BATTERY_LEVEL_H__
 #	define __MOONLIGHT_CONTROLLER_E_XINPUT_BATTERY_LEVEL_H__
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// XInput battery level enumerator
+	/// <summary>
+	/// XInput battery level enumerator
+	/// </summary>
 	enum EXInputBatteryLevel
 	{
-		// Empty
+		/// <summary>
+		/// Empty
+		/// </summary>
 		EXInputBatteryLevel_Empty = 0x0,
 
-		// Low
+		/// <summary>
+		/// Low
+		/// </summary>
 		EXInputBatteryLevel_Low = 0x1,
 
-		// Medium
+		/// <summary>
+		/// Medium
+		/// </summary>
 		EXInputBatteryLevel_Medium = 0x2,
 
-		// Full
+		/// <summary>
+		/// Full
+		/// </summary>
 		EXInputBatteryLevel_Full = 0x3
 	};
 }

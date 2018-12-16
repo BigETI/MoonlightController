@@ -4,39 +4,69 @@
 #	include <libmoonlightcontroller/EXInputVirtualKey.h>
 #	include <libmoonlightcontroller/EXInputKeyboardStates.h>
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// XInput keystroke class
+	/// <summary>
+	/// XInput keystroke class
+	/// </summary>
 	class XInputKeystroke
 	{
 	public:
 
-		// Virtual key
+		/// <summary>
+		/// Virtual key
+		/// </summary>
 		EXInputVirtualKey virtualKey;
 
-		// Unicode
+		/// <summary>
+		/// Unicode
+		/// </summary>
 		wchar_t unicode;
 
-		// Keyboard states
+		/// <summary>
+		/// Keyboard states
+		/// </summary>
 		EXInputKeyboardStates keyboardStates;
 
-		// User index
+		/// <summary>
+		/// User index
+		/// </summary>
 		int userIndex;
 
-		// HID code
+		/// <summary>
+		/// HID code
+		/// </summary>
 		unsigned char hidCode;
 
-		// Default constructor
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		XInputKeystroke();
 
-		// Copy constructor
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
+		/// <param name="keystroke">XInput keystroke</param>
 		XInputKeystroke(const XInputKeystroke & keystroke);
 
-		// Default constructor
-		XInputKeystroke(EXInputVirtualKey _virtualKey, wchar_t _unicode, EXInputKeyboardStates _keyboardStates, int _userIndex, unsigned char _hidCode);
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		/// <param name="virtualKey">Virtual key</param>
+		/// <param name="unicode">Unicode</param>
+		/// <param name="keyboardStates">Keyboard states</param>
+		/// <param name="userIndex">User index</param>
+		/// <param name="hidCode">HID code</param>
+		XInputKeystroke(EXInputVirtualKey virtualKey, wchar_t unicode, EXInputKeyboardStates keyboardStates, int userIndex, unsigned char hidCode);
 
-		// Assign operator
+		/// <summary>
+		/// Assign operator
+		/// </summary>
+		/// <param name="keystroke">XInput keystroke</param>
+		/// <returns>This</returns>
 		XInputKeystroke & operator = (const XInputKeystroke & keystroke);
 	};
 }

@@ -1,43 +1,69 @@
 #ifndef __MOONLIGHT_CONTROLLER_E_XINPUT_DEVICE_SUB_TYPE_H__
 #	define __MOONLIGHT_CONTROLLER_E_XINPUT_DEVICE_SUB_TYPE_H__
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// XInput device sub-type enumerator
+	/// <summary>
+	/// XInput device sub-type enumerator
+	/// </summary>
 	enum EXInputDeviceSubType
 	{
-		// Unkown
+		/// <summary>
+		/// Unkown
+		/// </summary>
 		EXInputDeviceSubType_Unknown = 0x0,
 
-		// Gamepad
+		/// <summary>
+		/// Gamepad
+		/// </summary>
 		EXInputDeviceSubType_Gamepad = 0x1,
 
-		// Wheel
+		/// <summary>
+		/// Wheel
+		/// </summary>
 		EXInputDeviceSubType_Wheel = 0x2,
 
-		// Arcade stick
+		/// <summary>
+		/// Arcade stick
+		/// </summary>
 		EXInputDeviceSubType_ArcadeStick = 0x3,
 
-		// Flight stick
+		/// <summary>
+		/// Flight stick
+		/// </summary>
 		EXInputDeviceSubType_FlightStick = 0x4,
 
-		// Dance pad
+		/// <summary>
+		/// Dance pad
+		/// </summary>
 		EXInputDeviceSubType_DancePad = 0x5,
 
-		// Guitar
+		/// <summary>
+		/// Guitar
+		/// </summary>
 		EXInputDeviceSubType_Guitar = 0x6,
 
-		// Guitar alternate
+		/// <summary>
+		/// Guitar alternate
+		/// </summary>
 		EXInputDeviceSubType_GuitarAlternate = 0x7,
 
-		// Guitar bass
+		/// <summary>
+		/// Guitar bass
+		/// </summary>
 		EXInputDeviceSubType_GuitarBass = 0xB,
 
-		// Drum kit
+		/// <summary>
+		/// Drum kit
+		/// </summary>
 		EXInputDeviceSubType_DrumKit = 0x8,
 
-		// Arcade pad
+		/// <summary>
+		/// Arcade pad
+		/// </summary>
 		EXInputDeviceSubType_ArcadePad = 0x13
 	};
 }

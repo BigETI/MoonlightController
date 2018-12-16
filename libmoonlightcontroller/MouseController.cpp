@@ -8,8 +8,14 @@
 
 using namespace MoonlightController;
 
+/// <summary>
+/// Is mouse button down
+/// </summary>
 static bool isDown[3] = { false };
 
+/// <summary>
+/// Default constructor
+/// </summary>
 MouseController::MouseController()
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 	: userInputOutput(EUserInputOutputType_Mouse, "Moonlight controller (Mouse)")
@@ -18,11 +24,19 @@ MouseController::MouseController()
 	//
 }
 
+/// <summary>
+/// Destructor
+/// </summary>
 MouseController::~MouseController()
 {
 	//
 }
 
+/// <summary>
+/// Set mouse position
+/// </summary>
+/// <param name="x">Mouse X</param>
+/// <param name="y">Mouse Y</param>
 void MouseController::SetPosition(int x, int y)
 {
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
@@ -36,31 +50,40 @@ void MouseController::SetPosition(int x, int y)
 	SetCursorPos(p.x, p.y);
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-	// To-do
+	// TODO
 #endif
 }
 
-Position MouseController::GetPosition()
+/// <summary>
+/// Get mouse position
+/// </summary>
+/// <param name="position">Mouse position</param>
+/// <returns>Mouse position</returns>
+Position & MouseController::GetPosition(Position & position)
 {
-	Position ret;
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 #	error Implement function here
-	// To-do
+	// TODO
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
-	POINT p;
+	POINT p = { 0 };
 	if (GetCursor() != NULL)
 	{
 		GetCursorPos(&p);
-		ret.x = p.x;
-		ret.y = p.y;
 	}
+	position.x = p.x;
+	position.y = p.y;
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-	// To-do
+	// TODO
 #endif
-	return ret;
+	return position;
 }
 
+/// <summary>
+/// Move mouse (relative)
+/// </summary>
+/// <param name="x">Mouse X</param>
+/// <param name="y">Mouse Y</param>
 void MouseController::Move(int x, int y)
 {
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
@@ -78,14 +101,18 @@ void MouseController::Move(int x, int y)
 	}
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-	// To-do
+	// TODO
 #endif
 }
 
-void MouseController::Click(EMouseButton mouseButton)
+/// <summary>
+/// Mouse click
+/// </summary>
+/// <param name="mouseButton">Mouse button</param>
+void MouseController::Click(EMouseButton button)
 {
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
-	switch (mouseButton)
+	switch (button)
 	{
 	case EMouseButton_Left:
 		userInputOutput.write(EV_KEY, BTN_LEFT, 1);
@@ -98,7 +125,7 @@ void MouseController::Click(EMouseButton mouseButton)
 		break;
 	}
 	userInputOutput.write(EV_SYN, SYN_REPORT, 0);
-	switch (mouseButton)
+	switch (button)
 	{
 	case EMouseButton_Left:
 		userInputOutput.write(EV_KEY, BTN_LEFT, 0);
@@ -112,10 +139,9 @@ void MouseController::Click(EMouseButton mouseButton)
 	}
 	userInputOutput.write(EV_SYN, SYN_REPORT, 0);
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
-	INPUT in;
-	memset(&in, 0, sizeof(INPUT));
+	INPUT in = { 0 };
 	in.type = INPUT_MOUSE;
-	switch (mouseButton)
+	switch (button)
 	{
 	case EMouseButton_Left:
 		in.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
@@ -128,7 +154,7 @@ void MouseController::Click(EMouseButton mouseButton)
 		break;
 	}
 	SendInput(1, &in, sizeof(INPUT));
-	switch (mouseButton)
+	switch (button)
 	{
 	case EMouseButton_Left:
 		in.mi.dwFlags = MOUSEEVENTF_LEFTUP;
@@ -144,16 +170,21 @@ void MouseController::Click(EMouseButton mouseButton)
 	SendInput(1, &in, sizeof(INPUT));
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-	// To-do
+	// TODO
 #endif
 }
 
-void MouseController::Press(EMouseButton mouseButton, bool down)
+/// <summary>
+/// Mouse press
+/// </summary>
+/// <param name="button">Mouse button</param>
+/// <param name="down">Press down</param>
+void MouseController::Press(EMouseButton button, bool down)
 {
-	if (down ? (!IsDown(mouseButton)) : IsDown(mouseButton))
+	if (down ? (!IsDown(button)) : IsDown(button))
 	{
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
-		switch (mouseButton)
+		switch (button)
 		{
 		case EMouseButton_Left:
 			userInputOutput.write(EV_KEY, BTN_LEFT, down ? 1 : 0);
@@ -170,55 +201,62 @@ void MouseController::Press(EMouseButton mouseButton, bool down)
 		}
 		userInputOutput.write(EV_SYN, SYN_REPORT, 0);
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
-		INPUT in;
-		memset(&in, 0, sizeof(INPUT));
+		INPUT in = { 0 };
 		in.type = INPUT_MOUSE;
-		switch (mouseButton)
+		switch (button)
 		{
 		case EMouseButton_Left:
 			in.mi.dwFlags = (down ? MOUSEEVENTF_LEFTDOWN : MOUSEEVENTF_LEFTUP);
-			isDown[mouseButton] = down;
+			isDown[button] = down;
 			break;
 		case EMouseButton_Right:
 			in.mi.dwFlags = (down ? MOUSEEVENTF_RIGHTDOWN : MOUSEEVENTF_RIGHTUP);
-			isDown[mouseButton] = down;
+			isDown[button] = down;
 			break;
 		case EMouseButton_Middle:
 			in.mi.dwFlags = (down ? MOUSEEVENTF_MIDDLEDOWN : MOUSEEVENTF_MIDDLEUP);
-			isDown[mouseButton] = down;
+			isDown[button] = down;
 			break;
 		}
 		in.mi.dwExtraInfo = GetMessageExtraInfo();
 		SendInput(1, &in, sizeof(INPUT));
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-		// To-do
+		// TODO
 #endif
 	}
 }
 
-bool MouseController::IsDown(EMouseButton mouseButton)
+/// <summary>
+/// Is mouse down
+/// </summary>
+/// <param name="button">Mouse button</param>
+/// <returns>"true" if mouse button is down, otherwise "false"</returns>
+bool MouseController::IsDown(EMouseButton button)
 {
 	bool ret(false);
-	switch (mouseButton)
+	switch (button)
 	{
 	case EMouseButton_Left:
 	case EMouseButton_Right:
 	case EMouseButton_Middle:
-		ret = isDown[mouseButton];
+		ret = isDown[button];
 		break;
 	}
 	return ret;
 }
 
+/// <summary>
+/// Scroll mouse wheel
+/// </summary>
+/// <param name="scroll">Scroll</param>
 void MouseController::Scroll(int scroll)
 {
 #if defined(MOONLIGHT_CONTROLLER_LINUX)
 #	error Implement function here
-	// To-do
+	// TODO
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
-	INPUT in;
-	memset(&in, 0, sizeof(INPUT));
+	INPUT in = { 0 };
 	in.type = INPUT_MOUSE;
 	in.mi.mouseData = scroll;
 	in.mi.dwFlags = MOUSEEVENTF_WHEEL;
@@ -226,6 +264,6 @@ void MouseController::Scroll(int scroll)
 	SendInput(1, &in, sizeof(INPUT));
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
-	// To-do
+	// TODO
 #endif
 }

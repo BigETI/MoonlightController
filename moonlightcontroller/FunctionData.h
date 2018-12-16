@@ -4,20 +4,33 @@
 #	include <string>
 #	include <vector>
 
-// Function data structure
+/// <summary>
+/// Function data structure
+/// </summary>
 struct FunctionData
 {
-	// Function
-	bool(*function)(std::vector<std::string> &);
+	/// <summary>
+	/// Function
+	/// </summary>
+	bool(*function)(const std::vector<std::string> &);
 
-	// Help string
+	/// <summary>
+	/// Help string
+	/// </summary>
 	std::string help;
 
-	// Is unique
+	/// <summary>
+	/// Is unique
+	/// </summary>
 	bool isUnique;
 
-	// Constructor
-	FunctionData(bool(*_function)(std::vector<std::string> &), std::string _help, bool _isUnique) : function(_function), help(_help), isUnique(_isUnique)
+	/// <summary>
+	/// Constructor
+	/// </summary>
+	/// <param name="function">Function</param>
+	/// <param name="help">Help</param>
+	/// <param name="isUnique">Is unique</param>
+	FunctionData(bool(*function)(const std::vector<std::string> &), const std::string & help, bool isUnique) : function(function), help(help), isUnique(isUnique)
 	{
 		//
 	}

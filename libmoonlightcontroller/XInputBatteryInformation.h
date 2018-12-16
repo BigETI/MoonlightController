@@ -4,31 +4,52 @@
 #	include <libmoonlightcontroller/EXInputBatteryType.h>
 #	include <libmoonlightcontroller/EXInputBatteryLevel.h>
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-	// XInput battery information class
+	/// <summary>
+	/// XInput battery information class
+	/// </summary>
 	class XInputBatteryInformation
 	{
 	public:
 
-		// Battery type
+		/// <summary>
+		/// Battery type
+		/// </summary>
 		EXInputBatteryType batteryType;
 
-		// Battery level
+		/// <summary>
+		/// Battery level
+		/// </summary>
 		EXInputBatteryLevel batteryLevel;
 
-		// Default constructor
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		XInputBatteryInformation();
 
-		// Copy constructor
+		/// <summary>
+		/// Copy constructor
+		/// </summary>
+		/// <param name="batteryInformation">Battery information</param>
 		XInputBatteryInformation(const XInputBatteryInformation & batteryInformation);
 
-		// Constructor
-		XInputBatteryInformation(EXInputBatteryType _batteryType, EXInputBatteryLevel _batteryLevel);
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="batteryType">Battery type</param>
+		/// <param name="batteryLevel">Battery level</param>
+		XInputBatteryInformation(EXInputBatteryType batteryType, EXInputBatteryLevel batteryLevel);
 
-		// Assign operator
-		XInputBatteryInformation & operator = (const XInputBatteryInformation &);
+		/// <summary>
+		/// Assign operator
+		/// </summary>
+		/// <param name="batteryInformation">Battery information</param>
+		/// <returns>This</returns>
+		XInputBatteryInformation & operator = (const XInputBatteryInformation & batteryInformation);
 	};
 }
 #endif
