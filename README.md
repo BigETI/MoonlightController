@@ -15,10 +15,10 @@ Moonlight controller is a cross platform library to control user I/O interfaces 
 \* will be supported at a later point in time
 
 ## License
-The [licence](https://github.com/BigETI/libmoonlightcontroller/blob/master/LICENSE) can be found here: [https://github.com/BigETI/libmoonlightcontroller/blob/master/LICENSE](https://github.com/BigETI/libmoonlightcontroller/blob/master/LICENSE)
+The [license](https://github.com/BigETI/libmoonlightcontroller/blob/master/LICENSE) can be found here: [https://github.com/BigETI/libmoonlightcontroller/blob/master/LICENSE](https://github.com/BigETI/libmoonlightcontroller/blob/master/LICENSE)
 
 ## Documentation
-The [documentation](https://github.com/BigETI/libmoonlightcontroller/wiki) for installing Moonlight Controller and the scripting API of Moonlight Controller modules can be found here: [https://github.com/BigETI/libmoonlightcontroller/wiki](https://github.com/BigETI/libmoonlightcontroller/wiki)
+The [documentation](https://github.com/BigETI/libmoonlightcontroller/wiki) for installing Moonlight Controller and the documentation for the scripting API of Moonlight Controller can be found here: [https://github.com/BigETI/libmoonlightcontroller/wiki](https://github.com/BigETI/libmoonlightcontroller/wiki)
 
 ## Important notes
 This project is still in development. Code for all platforms are not implemented yet.
