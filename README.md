@@ -8,11 +8,11 @@ Moonlight controller is a cross platform library to control user I/O interfaces 
 - Lua
 
 ## Supported platforms
-- Linux*
-- OSX*
+- Linux *
+- OSX *
 - Windows
 
-* will be supported at a later point in time
+\* will be supported at a later point in time
 
 ## License
 The [licence](https://github.com/BigETI/libmoonlightcontroller/blob/master/LICENSE) can be found here: [https://github.com/BigETI/libmoonlightcontroller/blob/master/LICENSE](https://github.com/BigETI/libmoonlightcontroller/blob/master/LICENSE)
