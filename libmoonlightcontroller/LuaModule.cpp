@@ -16,16 +16,107 @@ static wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
 static map<lua_State *, LuaModule *> instances;
 
 /// <summary>
-/// Lua mouse set position
+/// Lua event invoke
 /// </summary>
 /// <param name="luaState">Lua state</param>
 /// <returns>Number of return values</returns>
-static int mouse_setPosition(lua_State *luaState)
+int event_invoke(lua_State *luaState)
+{
+	if (lua_isstring(luaState, 1))
+	{
+		string name = lua_tostring(luaState, 1);
+		for (const pair<lua_State *, LuaModule *> & instance : instances)
+		{
+			if (instance.second)
+			{
+				instance.second->InvokeEvent(name);
+			}
+		}
+	}
+	return 0;
+}
+
+/// <summary>
+/// Lua event register
+/// </summary>
+/// <param name="luaState">Lua state</param>
+/// <returns>Number of return values</returns>
+int event_register(lua_State *luaState)
 {
 	LuaModule *lua_module(instances[luaState]);
-	if (lua_module && lua_isinteger(luaState, 1) && lua_isinteger(luaState, 2))
+	if (lua_module && lua_isstring(luaState, 1) && lua_isfunction(luaState, 2))
 	{
-		lua_module->mouseController.SetPosition(static_cast<int>(lua_tointeger(luaState, 1)), static_cast<int>(lua_tointeger(luaState, 2)));
+		string name = lua_tostring(luaState, 1);
+		int func = luaL_ref(luaState, LUA_REGISTRYINDEX);
+		map<string, vector<int>>::iterator it(lua_module->events.find(name));
+		if (it == lua_module->events.end())
+		{
+			lua_module->events.insert(pair<string, vector<int>>(name, { func }));
+		}
+		else
+		{
+			lua_module->events[name].push_back(func);
+		}
+	}
+	return 0;
+}
+
+/// <summary>
+/// Lua keyboard click
+/// </summary>
+/// <param name="luaState">Lua state</param>
+/// <returns>Number of return values</returns>
+int keyboard_click(lua_State *luaState)
+{
+	LuaModule *lua_module(instances[luaState]);
+	if (lua_module && lua_isinteger(luaState, 1))
+	{
+		lua_module->keyboardController.Click(static_cast<int>(lua_tointeger(luaState, 1)));
+	}
+	return 0;
+}
+
+/// <summary>
+/// Lua keyboard input
+/// </summary>
+/// <param name="luaState">Lua state</param>
+/// <returns>Number of return values</returns>
+int keyboard_input(lua_State *luaState)
+{
+	LuaModule *lua_module(instances[luaState]);
+	if (lua_module && lua_isstring(luaState, 1))
+	{
+		lua_module->keyboardController.Input(lua_tostring(luaState, 1));
+	}
+	return 0;
+}
+
+/// <summary>
+/// Lua keyboard press
+/// </summary>
+/// <param name="luaState">Lua state</param>
+/// <returns>Number of return values</returns>
+int keyboard_press(lua_State *luaState)
+{
+	LuaModule *lua_module(instances[luaState]);
+	if (lua_module && lua_isinteger(luaState, 1) && lua_isboolean(luaState, 2))
+	{
+		lua_module->keyboardController.Press(static_cast<int>(lua_tointeger(luaState, 1)), lua_toboolean(luaState, 2));
+	}
+	return 0;
+}
+
+/// <summary>
+/// Lua mouse click
+/// </summary>
+/// <param name="luaState">Lua state</param>
+/// <returns>Number of return values</returns>
+int mouse_click(lua_State *luaState)
+{
+	LuaModule *lua_module(instances[luaState]);
+	if (lua_module && lua_isinteger(luaState, 1))
+	{
+		lua_module->mouseController.Click(static_cast<EMouseButton>(static_cast<int>(lua_tointeger(luaState, 1))));
 	}
 	return 0;
 }
@@ -51,6 +142,23 @@ int mouse_getPosition(lua_State *luaState)
 }
 
 /// <summary>
+/// Lua mouse is down
+/// </summary>
+/// <param name="luaState">Lua state</param>
+/// <returns>Number of return values</returns>
+int mouse_isDown(lua_State *luaState)
+{
+	int ret(0);
+	LuaModule *lua_module(instances[luaState]);
+	if (lua_module && lua_isinteger(luaState, 1))
+	{
+		lua_pushboolean(luaState, lua_module->mouseController.IsDown(static_cast<EMouseButton>(lua_tointeger(luaState, 1))));
+		ret = 1;
+	}
+	return ret;
+}
+
+/// <summary>
 /// Lua mouse move
 /// </summary>
 /// <param name="luaState">Lua state</param>
@@ -61,21 +169,6 @@ static int mouse_move(lua_State *luaState)
 	if (lua_module && lua_isinteger(luaState, 1) && lua_isinteger(luaState, 2))
 	{
 		lua_module->mouseController.Move(static_cast<int>(lua_tointeger(luaState, 1)), static_cast<int>(lua_tointeger(luaState, 2)));
-	}
-	return 0;
-}
-
-/// <summary>
-/// Lua mouse click
-/// </summary>
-/// <param name="luaState">Lua state</param>
-/// <returns>Number of return values</returns>
-int mouse_click(lua_State *luaState)
-{
-	LuaModule *lua_module(instances[luaState]);
-	if (lua_module && lua_isinteger(luaState, 1))
-	{
-		lua_module->mouseController.Click(static_cast<EMouseButton>(static_cast<int>(lua_tointeger(luaState, 1))));
 	}
 	return 0;
 }
@@ -96,23 +189,6 @@ int mouse_press(lua_State *luaState)
 }
 
 /// <summary>
-/// Lua mouse is down
-/// </summary>
-/// <param name="luaState">Lua state</param>
-/// <returns>Number of return values</returns>
-int mouse_isDown(lua_State *luaState)
-{
-	int ret(0);
-	LuaModule *lua_module(instances[luaState]);
-	if (lua_module && lua_isinteger(luaState, 1))
-	{
-		lua_pushboolean(luaState, lua_module->mouseController.IsDown(static_cast<EMouseButton>(lua_tointeger(luaState, 1))));
-		ret = 1;
-	}
-	return ret;
-}
-
-/// <summary>
 /// Lua mouse scroll
 /// </summary>
 /// <param name="luaState">Lua state</param>
@@ -128,46 +204,31 @@ int mouse_scroll(lua_State *luaState)
 }
 
 /// <summary>
-/// Lua keyboard click
+/// Lua mouse set position
 /// </summary>
 /// <param name="luaState">Lua state</param>
 /// <returns>Number of return values</returns>
-int keyboard_click(lua_State *luaState)
+static int mouse_setPosition(lua_State *luaState)
 {
 	LuaModule *lua_module(instances[luaState]);
-	if (lua_module && lua_isinteger(luaState, 1))
+	if (lua_module && lua_isinteger(luaState, 1) && lua_isinteger(luaState, 2))
 	{
-		lua_module->keyboardController.Click(static_cast<int>(lua_tointeger(luaState, 1)));
+		lua_module->mouseController.SetPosition(static_cast<int>(lua_tointeger(luaState, 1)), static_cast<int>(lua_tointeger(luaState, 2)));
 	}
 	return 0;
 }
 
 /// <summary>
-/// Lua keyboard press
+/// Lua runtime exit
 /// </summary>
 /// <param name="luaState">Lua state</param>
 /// <returns>Number of return values</returns>
-int keyboard_press(lua_State *luaState)
+int runtime_exit(lua_State *luaState)
 {
 	LuaModule *lua_module(instances[luaState]);
-	if (lua_module && lua_isinteger(luaState, 1) && lua_isboolean(luaState, 2))
+	if (lua_module)
 	{
-		lua_module->keyboardController.Press(static_cast<int>(lua_tointeger(luaState, 1)), lua_toboolean(luaState, 2));
-	}
-	return 0;
-}
-
-/// <summary>
-/// Lua keyboard input
-/// </summary>
-/// <param name="luaState">Lua state</param>
-/// <returns>Number of return values</returns>
-int keyboard_input(lua_State *luaState)
-{
-	LuaModule *lua_module(instances[luaState]);
-	if (lua_module && lua_isstring(luaState, 1))
-	{
-		lua_module->keyboardController.Input(lua_tostring(luaState, 1));
+		lua_module->SetExitSignal();
 	}
 	return 0;
 }
@@ -333,56 +394,12 @@ int xinput_getKeystroke(lua_State *luaState)
 }
 
 /// <summary>
-/// Lua runtime exit
+/// Event library
 /// </summary>
-/// <param name="luaState">Lua state</param>
-/// <returns>Number of return values</returns>
-int runtime_exit(lua_State *luaState)
+static const luaL_Reg eventLibrary[] =
 {
-	LuaModule *lua_module(instances[luaState]);
-	if (lua_module)
-	{
-		lua_module->SetExitSignal();
-	}
-	return 0;
-}
-
-/// <summary>
-/// Lua event register
-/// </summary>
-/// <param name="luaState">Lua state</param>
-/// <returns>Number of return values</returns>
-int event_register(lua_State *luaState)
-{
-	LuaModule *lua_module(instances[luaState]);
-	if (lua_module && lua_isstring(luaState, 1) && lua_isfunction(luaState, 2))
-	{
-		string name = lua_tostring(luaState, 1);
-		int func = luaL_ref(luaState, LUA_REGISTRYINDEX);
-		map<string, vector<int>>::iterator it(lua_module->events.find(name));
-		if (it == lua_module->events.end())
-		{
-			lua_module->events.insert(pair<string, vector<int>>(name, { func }));
-		}
-		else
-		{
-			lua_module->events[name].push_back(func);
-		}
-	}
-	return 0;
-}
-
-/// <summary>
-/// Mouse library
-/// </summary>
-static const luaL_Reg mouseLibrary[] = {
-	{ "setPosition", mouse_setPosition },
-	{ "getPosition", mouse_getPosition },
-	{ "move", mouse_move },
-	{ "click", mouse_click },
-	{ "press", mouse_press },
-	{ "isDown", mouse_isDown },
-	{ "scroll", mouse_scroll },
+	{ "invoke", event_invoke },
+	{ "register", event_register },
 	{ nullptr, nullptr }
 };
 
@@ -392,8 +409,22 @@ static const luaL_Reg mouseLibrary[] = {
 static const luaL_Reg keyboardLibrary[] =
 {
 	{ "click", keyboard_click },
-	{ "press", keyboard_press },
 	{ "input", keyboard_input },
+	{ "press", keyboard_press },
+	{ nullptr, nullptr }
+};
+
+/// <summary>
+/// Mouse library
+/// </summary>
+static const luaL_Reg mouseLibrary[] = {
+	{ "click", mouse_click },
+	{ "getPosition", mouse_getPosition },
+	{ "isDown", mouse_isDown },
+	{ "move", mouse_move },
+	{ "press", mouse_press },
+	{ "scroll", mouse_scroll },
+	{ "setPosition", mouse_setPosition },
 	{ nullptr, nullptr }
 };
 
@@ -402,14 +433,14 @@ static const luaL_Reg keyboardLibrary[] =
 /// </summary>
 static const luaL_Reg xInputLibrary[] =
 {
-	{ "isConnected", xinput_isConnected },
-	{ "getButtons", xinput_getButtons },
-	{ "getAxis", xinput_getAxis },
-	{ "setVibration", xinput_setVibration },
 	{ "getAudioDeviceIDs", xinput_getAudioDeviceIDs },
+	{ "getAxis", xinput_getAxis },
 	{ "getBatteryInformation", xinput_getBatteryInformation },
+	{ "getButtons", xinput_getButtons },
 	{ "getCapabilities", xinput_getCapabilities },
 	{ "getKeystroke", xinput_getKeystroke },
+	{ "isConnected", xinput_isConnected },
+	{ "setVibration", xinput_setVibration },
 	{ nullptr, nullptr }
 };
 
@@ -419,15 +450,6 @@ static const luaL_Reg xInputLibrary[] =
 static const luaL_Reg runtimeLibrary[] =
 {
 	{ "exit", runtime_exit },
-	{ nullptr, nullptr }
-};
-
-/// <summary>
-/// Event library
-/// </summary>
-static const luaL_Reg eventLibrary[] =
-{
-	{ "register", event_register },
 	{ nullptr, nullptr }
 };
 
@@ -519,6 +541,44 @@ LuaModule::LuaModule(const string & source, bool isFile, ELuaModuleLibraries lib
 			lua_setfield(luaState, -2, "leftTrigger");
 			lua_pushinteger(luaState, EXInputAxis_RightTrigger);
 			lua_setfield(luaState, -2, "rightTrigger");
+			lua_pushinteger(luaState, EXInputBatteryType_Disconnected);
+			lua_setfield(luaState, -2, "batteryTypeDisconnected");
+			lua_pushinteger(luaState, EXInputBatteryType_Wired);
+			lua_setfield(luaState, -2, "batteryTypeWired");
+			lua_pushinteger(luaState, EXInputBatteryType_Alkaline);
+			lua_setfield(luaState, -2, "batteryTypeAlkaline");
+			lua_pushinteger(luaState, EXInputBatteryType_NiMH);
+			lua_setfield(luaState, -2, "batteryTypeNiMH");
+			lua_pushinteger(luaState, EXInputBatteryType_Unknown);
+			lua_setfield(luaState, -2, "batteryTypeUnknown");
+			lua_pushinteger(luaState, EXInputDeviceType_Gamepad);
+			lua_setfield(luaState, -2, "deviceTypeGamepad");
+			lua_pushinteger(luaState, EXInputBatteryDeviceType_Gamepad);
+			lua_setfield(luaState, -2, "batteryDeviceTypeGamepad");
+			lua_pushinteger(luaState, EXInputBatteryDeviceType_Headset);
+			lua_setfield(luaState, -2, "batteryDeviceTypeHeadset");
+			lua_pushinteger(luaState, EXInputDeviceSubType_Unknown);
+			lua_setfield(luaState, -2, "deviceSubTypeUnknown");
+			lua_pushinteger(luaState, EXInputDeviceSubType_Gamepad);
+			lua_setfield(luaState, -2, "deviceSubTypeGamepad");
+			lua_pushinteger(luaState, EXInputDeviceSubType_Wheel);
+			lua_setfield(luaState, -2, "deviceSubTypeWheel");
+			lua_pushinteger(luaState, EXInputDeviceSubType_ArcadeStick);
+			lua_setfield(luaState, -2, "deviceSubTypeArcadeStick");
+			lua_pushinteger(luaState, EXInputDeviceSubType_FlightStick);
+			lua_setfield(luaState, -2, "deviceSubTypeFlightStick");
+			lua_pushinteger(luaState, EXInputDeviceSubType_DancePad);
+			lua_setfield(luaState, -2, "deviceSubTypeDancePad");
+			lua_pushinteger(luaState, EXInputDeviceSubType_Guitar);
+			lua_setfield(luaState, -2, "deviceSubTypeGuitar");
+			lua_pushinteger(luaState, EXInputDeviceSubType_GuitarAlternate);
+			lua_setfield(luaState, -2, "deviceSubTypeGuitarAlternate");
+			lua_pushinteger(luaState, EXInputDeviceSubType_GuitarBass);
+			lua_setfield(luaState, -2, "deviceSubTypeGuitarBass");
+			lua_pushinteger(luaState, EXInputDeviceSubType_DrumKit);
+			lua_setfield(luaState, -2, "deviceSubTypeDrumKit");
+			lua_pushinteger(luaState, EXInputDeviceSubType_ArcadePad);
+			lua_setfield(luaState, -2, "deviceSubTypeArcadePad");
 			lua_pushvalue(luaState, -1);
 			lua_setglobal(luaState, "xinput");
 		}

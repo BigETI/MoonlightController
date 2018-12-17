@@ -123,7 +123,7 @@
     <ClInclude Include="EXInputBatteryType.h" />
     <ClInclude Include="EXInputButtons.h" />
     <ClInclude Include="EXInputDeviceFeatures.h" />
-    <ClInclude Include="EXInputDeviceSubtype.h" />
+    <ClInclude Include="EXInputDeviceSubType.h" />
     <ClInclude Include="EXInputDeviceType.h" />
     <ClInclude Include="EXInputKeyboardStates.h" />
     <ClInclude Include="EXInputVirtualKey.h" />

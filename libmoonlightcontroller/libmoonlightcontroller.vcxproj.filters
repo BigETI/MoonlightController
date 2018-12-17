@@ -54,9 +54,6 @@
     <ClInclude Include="EXInputDeviceType.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="EXInputDeviceSubtype.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="EXInputDeviceFeatures.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -79,6 +76,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Platform.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="EXInputDeviceSubType.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
