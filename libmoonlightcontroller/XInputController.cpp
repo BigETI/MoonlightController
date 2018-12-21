@@ -13,6 +13,11 @@ using namespace MoonlightController;
 using namespace std;
 
 /// <summary>
+/// Maximal controllers
+/// </summary>
+const size_t XInputController::MaxControllers(XUSER_MAX_COUNT);
+
+/// <summary>
 /// Default constructor
 /// </summary>
 XInputController::XInputController()
@@ -43,7 +48,7 @@ bool XInputController::IsConnected(int controllerID)
 	// TODO
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
 	XINPUT_STATE state;
-	return (XInputGetState(static_cast<DWORD>(controllerID), &state) == 0L);
+	return (XInputGetState(static_cast<DWORD>(controllerID), &state) == 0);
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
 	// TODO

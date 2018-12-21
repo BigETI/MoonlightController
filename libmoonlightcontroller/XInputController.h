@@ -50,6 +50,11 @@ namespace MoonlightController
 	public:
 
 		/// <summary>
+		/// Maximal controllers
+		/// </summary>
+		static const size_t MaxControllers;
+
+		/// <summary>
 		/// Default constructor
 		/// </summary>
 		XInputController();

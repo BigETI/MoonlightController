@@ -9,11 +9,6 @@
 using namespace MoonlightController;
 
 /// <summary>
-/// Is mouse button down
-/// </summary>
-static bool isDown[3] = { false };
-
-/// <summary>
 /// Default constructor
 /// </summary>
 MouseController::MouseController()
@@ -44,10 +39,7 @@ void MouseController::SetPosition(int x, int y)
 	userInputOutput.write(EV_ABS, ABS_Y, y);
 	userInputOutput.write(EV_SYN, SYN_REPORT, 0);
 #elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
-	POINT p;
-	p.x = x;
-	p.y = y;
-	SetCursorPos(p.x, p.y);
+	SetCursorPos(x, y);
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
 	// TODO
@@ -207,15 +199,12 @@ void MouseController::Press(EMouseButton button, bool down)
 		{
 		case EMouseButton_Left:
 			in.mi.dwFlags = (down ? MOUSEEVENTF_LEFTDOWN : MOUSEEVENTF_LEFTUP);
-			isDown[button] = down;
 			break;
 		case EMouseButton_Right:
 			in.mi.dwFlags = (down ? MOUSEEVENTF_RIGHTDOWN : MOUSEEVENTF_RIGHTUP);
-			isDown[button] = down;
 			break;
 		case EMouseButton_Middle:
 			in.mi.dwFlags = (down ? MOUSEEVENTF_MIDDLEDOWN : MOUSEEVENTF_MIDDLEUP);
-			isDown[button] = down;
 			break;
 		}
 		in.mi.dwExtraInfo = GetMessageExtraInfo();
@@ -234,16 +223,28 @@ void MouseController::Press(EMouseButton button, bool down)
 /// <returns>"true" if mouse button is down, otherwise "false"</returns>
 bool MouseController::IsDown(EMouseButton button)
 {
-	bool ret(false);
+#if defined(MOONLIGHT_CONTROLLER_LINUX)
+#	error Implement function here
+	// TODO
+#elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
+	int key_code(0);
 	switch (button)
 	{
 	case EMouseButton_Left:
+		key_code = VK_LBUTTON;
+		break;
 	case EMouseButton_Right:
+		key_code = VK_RBUTTON;
+		break;
 	case EMouseButton_Middle:
-		ret = isDown[button];
+		key_code = VK_MBUTTON;
 		break;
 	}
-	return ret;
+	return ((GetKeyState(key_code) & 0x800) == 0x800);
+#elif defined(MOONLIGHT_CONTROLLER_OSX)
+#	error Implement function here
+	// TODO
+#endif
 }
 
 /// <summary>

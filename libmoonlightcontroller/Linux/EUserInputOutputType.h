@@ -1,20 +1,30 @@
 #ifndef __MOONLIGHT_CONTROLLER_E_USER_INPUT_OUTPUT_TYPE_H__
 #   define __MOONLIGHT_CONTROLLER_E_USER_INPUT_OUTPUT_TYPE_H__
 
-// Moonlight controller namespace
+/// <summary>
+/// Moonlight controller namespace
+/// </summary>
 namespace MoonlightController
 {
-    // User input output type enumerator
-    enum EUserInputOutputType
-    {
-        // Keyboard
-        EUserInputOutputType_Keyboard,
+	/// <summary>
+	/// User input and output enumerator
+	/// </summary>
+	enum EUserInputOutputType
+	{
+		/// <summary>
+		/// Keyboard
+		/// </summary>
+		EUserInputOutputType_Keyboard,
 
-        // Mouse
-        EUserInputOutputType_Mouse,
+		/// <summary>
+		/// Mouse
+		/// </summary>
+		EUserInputOutputType_Mouse,
 
-        // Gamepad
-        EUserInputOutputType_Gamepad
-    };
+		/// <summary>
+		/// Gamepad
+		/// </summary>
+		EUserInputOutputType_Gamepad
+	};
 }
 #endif

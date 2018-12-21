@@ -31,6 +31,14 @@ XInputBatteryInformation::XInputBatteryInformation(EXInputBatteryType batteryTyp
 }
 
 /// <summary>
+/// Destructor
+/// </summary>
+XInputBatteryInformation::~XInputBatteryInformation()
+{
+	//
+}
+
+/// <summary>
 /// Assign operator
 /// </summary>
 /// <param name="batteryInformation">Battery information</param>

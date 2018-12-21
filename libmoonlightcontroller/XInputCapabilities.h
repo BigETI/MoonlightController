@@ -107,6 +107,11 @@ namespace MoonlightController
 		XInputCapabilities(EXInputDeviceType deviceType, EXInputDeviceSubType deviceSubType, EXInputDeviceFeatures deviceFeatures, EXInputButtons buttons, float leftTrigger, float rightTrigger, float thumbLX, float thumbLY, float thumbRX, float thumbRY, float leftMotor, float rightMotor);
 
 		/// <summary>
+		/// Destructor
+		/// </summary>
+		~XInputCapabilities();
+
+		/// <summary>
 		/// Assign operator
 		/// </summary>
 		/// <param name="capabilities">XInput Capabilities</param>

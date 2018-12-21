@@ -35,7 +35,15 @@ XInputCapabilities::XInputCapabilities(const XInputCapabilities & capabilities) 
 /// <param name="thumbRY">Thumb RY</param>
 /// <param name="leftMotor">Left motor</param>
 /// <param name="rightMotor">Right motor</param>
-XInputCapabilities::XInputCapabilities(EXInputDeviceType _deviceType, EXInputDeviceSubType _deviceSubType, EXInputDeviceFeatures _deviceFeatures, EXInputButtons _buttons, float _leftTrigger, float _rightTrigger, float _thumbLX, float _thumbLY, float _thumbRX, float _thumbRY, float _leftMotor, float _rightMotor) : deviceType(_deviceType), deviceSubType(_deviceSubType), deviceFeatures(_deviceFeatures), buttons(_buttons), leftTrigger(_leftTrigger), rightTrigger(_rightTrigger), thumbLX(_thumbLX), thumbLY(_thumbLY), thumbRX(_thumbRX), thumbRY(_thumbRY), leftMotor(_leftMotor), rightMotor(_rightMotor)
+XInputCapabilities::XInputCapabilities(EXInputDeviceType deviceType, EXInputDeviceSubType deviceSubType, EXInputDeviceFeatures deviceFeatures, EXInputButtons buttons, float leftTrigger, float rightTrigger, float thumbLX, float thumbLY, float thumbRX, float thumbRY, float leftMotor, float rightMotor) : deviceType(deviceType), deviceSubType(deviceSubType), deviceFeatures(deviceFeatures), buttons(buttons), leftTrigger(leftTrigger), rightTrigger(rightTrigger), thumbLX(thumbLX), thumbLY(thumbLY), thumbRX(thumbRX), thumbRY(thumbRY), leftMotor(leftMotor), rightMotor(rightMotor)
+{
+	//
+}
+
+/// <summary>
+/// Destructor
+/// </summary>
+XInputCapabilities::~XInputCapabilities()
 {
 	//
 }

@@ -63,6 +63,11 @@ namespace MoonlightController
 		XInputKeystroke(EXInputVirtualKey virtualKey, wchar_t unicode, EXInputKeyboardStates keyboardStates, int userIndex, unsigned char hidCode);
 
 		/// <summary>
+		/// Destructor
+		/// </summary>
+		~XInputKeystroke();
+
+		/// <summary>
 		/// Assign operator
 		/// </summary>
 		/// <param name="keystroke">XInput keystroke</param>

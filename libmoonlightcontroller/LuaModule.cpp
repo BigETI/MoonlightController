@@ -92,6 +92,23 @@ int keyboard_input(lua_State *luaState)
 }
 
 /// <summary>
+/// Lua keyboard is down
+/// </summary>
+/// <param name="luaState">Lua state</param>
+/// <returns>Number of return values</returns>
+int keyboard_isDown(lua_State *luaState)
+{
+	int ret(0);
+	LuaModule *lua_module(instances[luaState]);
+	if (lua_module && lua_isinteger(luaState, 1))
+	{
+		lua_pushboolean(luaState, lua_module->keyboardController.IsDown(static_cast<int>(lua_tointeger(luaState, 1))));
+		ret = 1;
+	}
+	return ret;
+}
+
+/// <summary>
 /// Lua keyboard press
 /// </summary>
 /// <param name="luaState">Lua state</param>
@@ -410,6 +427,7 @@ static const luaL_Reg keyboardLibrary[] =
 {
 	{ "click", keyboard_click },
 	{ "input", keyboard_input },
+	{ "isDown", keyboard_isDown },
 	{ "press", keyboard_press },
 	{ nullptr, nullptr }
 };
@@ -501,6 +519,8 @@ LuaModule::LuaModule(const string & source, bool isFile, ELuaModuleLibraries lib
 		{
 			lua_newtable(luaState);
 			luaL_setfuncs(luaState, xInputLibrary, 0);
+			lua_pushinteger(luaState, static_cast<int>(XInputController::MaxControllers));
+			lua_setfield(luaState, -2, "maxControllers");
 			lua_pushinteger(luaState, EXInputButton_DPadUp);
 			lua_setfield(luaState, -2, "dPadUp");
 			lua_pushinteger(luaState, EXInputButton_DPadDown);
@@ -541,6 +561,14 @@ LuaModule::LuaModule(const string & source, bool isFile, ELuaModuleLibraries lib
 			lua_setfield(luaState, -2, "leftTrigger");
 			lua_pushinteger(luaState, EXInputAxis_RightTrigger);
 			lua_setfield(luaState, -2, "rightTrigger");
+			lua_pushinteger(luaState, EXInputBatteryLevel_Empty);
+			lua_setfield(luaState, -2, "batteryLevelEmpty");
+			lua_pushinteger(luaState, EXInputBatteryLevel_Low);
+			lua_setfield(luaState, -2, "batteryLevelLow");
+			lua_pushinteger(luaState, EXInputBatteryLevel_Medium);
+			lua_setfield(luaState, -2, "batteryLevelMedium");
+			lua_pushinteger(luaState, EXInputBatteryLevel_Full);
+			lua_setfield(luaState, -2, "batteryLevelFull");
 			lua_pushinteger(luaState, EXInputBatteryType_Disconnected);
 			lua_setfield(luaState, -2, "batteryTypeDisconnected");
 			lua_pushinteger(luaState, EXInputBatteryType_Wired);

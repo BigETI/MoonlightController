@@ -45,6 +45,11 @@ namespace MoonlightController
 		XInputBatteryInformation(EXInputBatteryType batteryType, EXInputBatteryLevel batteryLevel);
 
 		/// <summary>
+		/// Destructor
+		/// </summary>
+		~XInputBatteryInformation();
+
+		/// <summary>
 		/// Assign operator
 		/// </summary>
 		/// <param name="batteryInformation">Battery information</param>

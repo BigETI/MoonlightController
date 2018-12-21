@@ -34,6 +34,14 @@ XInputKeystroke::XInputKeystroke(EXInputVirtualKey virtualKey, wchar_t unicode, 
 }
 
 /// <summary>
+/// Destructor
+/// </summary>
+XInputKeystroke::~XInputKeystroke()
+{
+	//
+}
+
+/// <summary>
 /// Assign operator
 /// </summary>
 /// <param name="keystroke">XInput keystroke</param>

@@ -11,11 +11,6 @@ using namespace std;
 #endif
 
 /// <summary>
-/// Is keyboard key down
-/// </summary>
-static set<int> isDown;
-
-/// <summary>
 /// Default constructor
 /// </summary>
 KeyboardController::KeyboardController()
@@ -81,19 +76,10 @@ void KeyboardController::Press(int keyCode, bool down)
 			in.ki.dwFlags = KEYEVENTF_KEYUP;
 		}
 		SendInput(1, &in, sizeof(INPUT));
-
 #elif defined(MOONLIGHT_CONTROLLER_OSX)
 #	error Implement function here
 		// TODO
 #endif
-		if (down)
-		{
-			isDown.insert(keyCode);
-		}
-		else
-		{
-			isDown.erase(isDown.find(keyCode));
-		}
 	}
 }
 
@@ -104,7 +90,15 @@ void KeyboardController::Press(int keyCode, bool down)
 /// <returns>"true" if keyboard key is down, otherwise "false"</returns>
 bool KeyboardController::IsDown(int keyCode)
 {
-	return (isDown.find(keyCode) != isDown.end());
+#if defined(MOONLIGHT_CONTROLLER_LINUX)
+#	error Implement function here
+	// TODO
+#elif defined(MOONLIGHT_CONTROLLER_WINDOWS)
+	return ((GetKeyState(keyCode) & 0x800) == 0x800);
+#elif defined(MOONLIGHT_CONTROLLER_OSX)
+#	error Implement function here
+	// TODO
+#endif
 }
 
 /// <summary>
