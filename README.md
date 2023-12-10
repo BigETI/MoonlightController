@@ -1,27 +1,36 @@
-# Moonlight controller
+﻿# Moonlight controller
 
 ## Description
-Moonlight controller is a cross platform library to control user I/O interfaces using a scripting backend.
 
-## Supported languages
-- C++
-- Lua
+Moonlight controller is a cross platform C++23 library to control common user I/O interfaces using a scripting backend.
 
-## Supported platforms
-- Linux *
-- OSX *
-- Windows
+## Supported scripting languages
 
-\* will be supported at a later point in time
+- Lua 5.4
+
+## Platforms
+
+- ⚠️ Android
+- ⚠️ iOS
+- ⚠️ Linux
+- ⚠️ macOS
+- ✔️ Windows
+
+### Definitions
+
+- ✔️ Supported
+- ⚠️ Will be supported at a later point in time
 
 ## License
-The [license](https://github.com/BigETI/libmoonlightcontroller/blob/master/LICENSE) can be found here: [https://github.com/BigETI/libmoonlightcontroller/blob/master/LICENSE](https://github.com/BigETI/libmoonlightcontroller/blob/master/LICENSE)
 
-## Documentation
-The [documentation](https://github.com/BigETI/libmoonlightcontroller/wiki) for installing moonlight controller and the documentation for the scripting API of moonlight controller can be found here: [https://github.com/BigETI/libmoonlightcontroller/wiki](https://github.com/BigETI/libmoonlightcontroller/wiki)
+The [license](https://github.com/BigETI/MoonlightController/blob/master/LICENSE) can be found here: [https://github.com/BigETI/MoonlightController/blob/master/LICENSE](https://github.com/BigETI/MoonlightController/blob/master/LICENSE)
 
 ## Important notes
-This project is still in development. Code for all platforms are not implemented yet.
+
+This project is still in development.
+
+Code for all platforms are not implemented yet.
 
 ## How to contribute to this project?
+
 Create a fork out of this project, make your changes and create a pull request.
